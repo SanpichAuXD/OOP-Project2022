@@ -5,6 +5,7 @@
 package Character;
 
 // generate random like clip and move show word on head
+//test
 public class Zombie {
     
 }
