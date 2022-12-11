@@ -7,5 +7,7 @@ package Character;
 // generate random like clip and move show word on head
 
 public class Zombie {
-    
+    public static void main(String[] args) {
+        System.out.println("Hi AU");
+    }
 }
