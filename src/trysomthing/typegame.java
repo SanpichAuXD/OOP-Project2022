@@ -98,12 +98,7 @@ public class typegame extends JFrame{
             g2.setColor(Color.BLACK);
             g2.setFont(f);
             if(word1.st!=null){
-                try {
-                    g2.drawImage(ImageIO.read(new File("img\\tree.png")),0,0,20,200, null);
-//                g2.drawString(word1.st,word1.posx,word1.posy);
-                } catch (IOException ex) {
-                    Logger.getLogger(typegame.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                g2.drawString(word1.st,word1.posx,word1.posy);
             }
             if(word2.st!=null){
                 g2.drawString(word2.st,word2.posx,word2.posy);

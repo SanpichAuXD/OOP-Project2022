@@ -143,12 +143,12 @@ public class Game extends JPanel implements KeyListener{
                         
 			g2.drawImage(wave.getImage(),wave.x ,(wave.y-waveHeight),50,waveHeight+10,null);
 			if(Event.checkHit(dog,wave)){
-					g2.setColor(new Color(241, 98, 69));
+					g2.setColor(new Color(240, 98, 69));
                                         System.out.println("hit");
 					g2.setStroke(new BasicStroke(10.0f));
                                         g2.draw(new RoundRectangle2D.Double(5, 5, 977, 555, 0, 10));
-                                        dog.health-=20;
-//                                        waveSet1.remove(this);
+                                        dog.health -= 20;
+                                        wave.x += 10000;
 					if(dog.health<=0){
 						display.endGame(this.point);
 						dog.health = new Dog().health;
