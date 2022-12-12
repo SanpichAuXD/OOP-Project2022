@@ -12,22 +12,25 @@ import javax.swing.*;
 import Charactor.*;
 import Element.Element;
 import event.Event;
+import java.awt.geom.RoundRectangle2D;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Game extends JPanel implements KeyListener{
 
 	private static final long serialVersionUID = 1L;
 	
-	private static int speed = 30,dogSize = 60 ,waveHeight = 50;
+	private static int speed = 30, dogSize = 60 ,waveHeight = 50;
 	private static int base=400,xStart = 1000;
 	private long point = 0,lastPress=0;
-	
-	private Dog dog = new Dog(100,base-50);
+	private boolean check;
+        
+	private Dog dog = new Dog(0,base-50);
 	static Display display;
 //	------------------Wave SIze ----------------------------
-	private Wave[] waveSet1 = makeWave1(10);
-        private Wave[] waveSet2 = makeWave2(10);
-        private Wave[] waveSet3 = makeWave3(10);
+	private ArrayList<Wave> waveSet1 = makeWave1(10);
+        private ArrayList<Wave> waveSet2 = makeWave2(10);
+        private ArrayList<Wave> waveSet3 = makeWave3(10);
 //--------------------Cloud--------------------------------
 	private Environment[] envSet = makeEnv(2,Environment.CLOUD);
 	private Environment building = new Environment(xStart-100,base-150,this,Environment.BUILDING,4);
@@ -91,33 +94,32 @@ public class Game extends JPanel implements KeyListener{
 		}
 	}
 	
-	private Wave[] makeWave1(int size) {
+	private ArrayList makeWave1(int size) {
                 Random rand = new Random();
-		Wave[] waveSet1 = new Wave[size];
+		ArrayList<Wave> waveSet1 = new ArrayList<Wave>();
                 int far = 500;
 		for(int i=0;i<size;i++) {
-                        waveSet1[i] = new Wave(xStart+far,base,speed,this);
+                        waveSet1.add(new Wave(xStart+far,base,speed,this));
 			far+= 100+ rand.nextInt(0,500);
-                        System.out.println(waveSet1[i].x);
 		}
 		return waveSet1;
 	}
-	private Wave[] makeWave2(int size) {
-		Wave[] waveSet2 = new Wave[size];
+	private ArrayList makeWave2(int size) {
+		ArrayList<Wave> waveSet2 = new ArrayList<Wave>();
                 Random rand = new Random();
 		int far = 0;
 		for(int i=0;i<size;i++) {
-			waveSet2[i] = new Wave(xStart+far,base-150,speed,this);
+			waveSet2.add(new Wave(xStart+far,base-150,speed,this));
 			far+= 200+ rand.nextInt(0,500);
 		}
 		return waveSet2;
 	}
-	private Wave[] makeWave3(int size) {
-		Wave[] waveSet3 = new Wave[size];
+	private ArrayList makeWave3(int size) {
+		ArrayList<Wave> waveSet3 = new ArrayList<Wave>();
                 Random rand = new Random();
 		int far = 250;
 		for(int i=0;i<size;i++) {
-			waveSet3[i] = new Wave(xStart+far,base-300,speed,this);
+			waveSet3.add(new Wave(xStart+far,base-300,speed,this));
 			far+= 300+ rand.nextInt(0,500);
 		}
 		return waveSet3;
@@ -132,14 +134,22 @@ public class Game extends JPanel implements KeyListener{
 		}
 		return envSet;
 	}
+        
+        public void checkEnd(){
+            
+        }
 	
 	private void drawWave(Wave wave,Graphics2D g2) {
-			g2.drawImage(wave.getImage(),wave.x ,(wave.y-waveHeight),40,waveHeight+10,null);
-			if(Event.checkHit(dog,wave,dogSize,waveHeight)){
+                        
+			g2.drawImage(wave.getImage(),wave.x ,(wave.y-waveHeight),50,waveHeight+10,null);
+			if(Event.checkHit(dog,wave)){
 					g2.setColor(new Color(241, 98, 69));
-					g2.fillRect(0, 0,1000,1000);			
-					dog.health-=20;
-					if(dog.health<=0) {
+                                        System.out.println("hit");
+					g2.setStroke(new BasicStroke(10.0f));
+                                        g2.draw(new RoundRectangle2D.Double(5, 5, 977, 555, 0, 10));
+                                        dog.health-=20;
+//                                        waveSet1.remove(this);
+					if(dog.health<=0){
 						display.endGame(this.point);
 						dog.health = new Dog().health;
 						this.point = 0;	
@@ -171,4 +181,5 @@ public class Game extends JPanel implements KeyListener{
 	public static void main(String[] arg) {
 		 display = new Display();
 	}
+
 }

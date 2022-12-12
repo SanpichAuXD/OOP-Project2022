@@ -1,0 +1,189 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package trysomthing;
+
+import java.awt.*;
+import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
+import javax.swing.*;
+import javax.swing.event.*;
+import javax.swing.text.*;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+
+public class typegame extends JFrame{
+    JButton b=null;
+    JPanel p=null;
+    JTextField tf=null;
+    JLabel l=null;
+    JLabel l2=null;
+    int score=0;
+    int displayed=0;
+    ArrayList<String>  wordlist;
+    ArrayList<String>  pic;
+    WordRun word1=null;
+    WordRun word2=null;
+    WordRun word3=null;
+    
+    public typegame(){
+        super("Typing Tutor");
+        setSize(400,400);
+        setLayout(new BorderLayout());
+        
+        b=new JButton("Start");
+        b.addActionListener(new ButtonHandler());
+        add(b,BorderLayout.NORTH);
+        
+        p=new DrawPanel();
+        p.setPreferredSize(new Dimension(300,300));
+        add(p,BorderLayout.CENTER);
+        
+        JPanel p2=new JPanel();
+        p2.setLayout(new FlowLayout());
+        
+        tf=new JTextField(10);
+        tf.getDocument().addDocumentListener(new ListenText());
+        p2.add(tf);
+
+        l=new JLabel("0");
+        p2.add(l);
+        
+        l2=new JLabel("0");
+        p2.add(l2);
+        
+        add(p2,BorderLayout.SOUTH);
+        
+//        pic = new ArrayList<String>();
+//        pic.add(0,"img\\tree.png");
+//        pic.add(1,"img\\tree.png");
+//        pic.add(2,"img\\tree.png");
+        
+        
+        
+        wordlist=new ArrayList<String>();
+        wordlist.add(0,"abandon");
+        wordlist.add(1,"abate");
+        wordlist.add(2,"abbreviate");
+        wordlist.add(3,"abdicate");
+        wordlist.add(4,"aberration");
+        wordlist.add(5,"abhorrence");
+        wordlist.add(6,"ability");
+        wordlist.add(7,"ablaze");
+        wordlist.add(8,"abnormal");
+        wordlist.add(9,"aboard");
+        
+        word1=new WordRun();
+        word2=new WordRun();
+        word3=new WordRun();
+        
+        word1.st=null;
+        word2.st=null;
+        word3.st=null;
+        
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        show();
+    }
+    class DrawPanel extends JPanel{
+        public void paintComponent(Graphics g){
+            super.paintComponent(g);
+            Graphics2D g2=(Graphics2D)g;
+            
+            Font f=new Font("Monospaced",Font.BOLD,14);
+            FontMetrics fm=this.getFontMetrics(f);
+            g2.setColor(Color.BLACK);
+            g2.setFont(f);
+            if(word1.st!=null){
+                try {
+                    g2.drawImage(ImageIO.read(new File("img\\tree.png")),0,0,20,200, null);
+//                g2.drawString(word1.st,word1.posx,word1.posy);
+                } catch (IOException ex) {
+                    Logger.getLogger(typegame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if(word2.st!=null){
+                g2.drawString(word2.st,word2.posx,word2.posy);
+            }
+            if(word3.st!=null){
+                g2.drawString(word3.st,word3.posx,word3.posy);
+            }
+        }
+    }
+    class WordRun implements Runnable{
+        String st=null;
+        String img = null;
+        int posx;
+        int posy;
+//        Graphics2D g2;
+        
+        public void run(){
+            try{
+                Random rand=null;
+                while(true){
+                    if((st==null)||(posy==p.getHeight())){
+                        rand=new Random();
+                        Thread.currentThread().sleep(rand.nextInt(1000));
+                        img= pic.get(rand.nextInt(3));
+                        posy=0;
+                        do{
+                            posx=rand.nextInt(p.getWidth());
+                        }while(posx>(p.getWidth()-100));
+                        tf.setText("");
+                        l2.setText(displayed+"");
+                    }
+                    else{
+                        Thread.currentThread().sleep(20);
+                        posy++;
+                    } 
+                    repaint();
+                }
+            }catch(Exception e){
+            }    
+        }
+    }
+    class ButtonHandler implements ActionListener{
+        public void actionPerformed(ActionEvent e){
+            if(e.getActionCommand()=="Start"){
+                Thread t1=new Thread(word1);
+                Thread t2=new Thread(word2);
+                Thread t3=new Thread(word3);
+                t1.start();
+                t2.start();
+                t3.start();
+            }
+        }
+    }
+    class ListenText implements DocumentListener{
+        public void changedUpdate(DocumentEvent e) {
+        }
+        public void removeUpdate(DocumentEvent e) {
+        }
+        public void insertUpdate(DocumentEvent e) {
+            if(tf.getText().equals(word1.st)){
+                word1.st=null;
+                word1.posy=0;
+                score++;
+                l.setText(score+"");
+            }
+            if(tf.getText().equals(word2.st)){
+                word2.st=null;
+                word2.posy=0;
+                score++;
+                l.setText(score+"");
+            }
+            if(tf.getText().equals(word3.st)){
+                word3.st=null;
+                word3.posy=0;
+                score++;
+                l.setText(score+"");
+            }
+        }
+    }
+    public static void main(String[] args){
+        new typegame();
+    }
+}

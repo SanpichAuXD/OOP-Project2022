@@ -27,7 +27,7 @@ public class Wave {
 		public void move(JPanel page) {
 				 this.timeMove = new Timer(speed,new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-							x -= 15;
+							x -= 30;
 							page.repaint();
 					}
 				});
