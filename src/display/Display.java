@@ -12,51 +12,56 @@ import javax.swing.border.EmptyBorder;
 
 public class Display extends JFrame implements ActionListener{
 
-    private static final long serialVersionUID = 1L;
-    private Dimension size = new Dimension(1000,700);
+	private static final long serialVersionUID = 1L;
+	private Dimension size = new Dimension(1000,700);
         private JPanel p;
         public JTextField tf;
-
-    public Display() {
-        this.setting();
+		
+	public Display() {
+		this.setting();
                                     this.add(p, BorderLayout.SOUTH);
-        this.getContentPane().add(new Game(),BorderLayout.CENTER);
-
-    }
-
-    private void setting() {
-        this.setTitle("Dog ninja");
-        this.setSize(size);
+		this.getContentPane().add(new Game(),BorderLayout.CENTER);
+                
+	}
+	
+	private void setting() {
+		this.setTitle("Dog ninja");
+		this.setSize(size);
                                     this.setLayout(new BorderLayout());
                                     tf = new JTextField(20);
                                     tf.setBorder(new EmptyBorder(5,0,5,0));
                                     tf.setFont(Element.getFont(30));
                                     p = new JPanel();
                                     p.add(tf);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLocation(280,100);
-
-        this.setVisible(true);
-    }
-
-    private void removeContent() {
-        this.getContentPane().removeAll();
-        this.getContentPane().repaint();
-    }
-
-    public void endGame(long point) {
-        removeContent();
-        this.getContentPane().add(new Menu(point,this));
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if(e.getActionCommand().equals("restart")) {
-            removeContent();
-            Game game = new Game();
-            this.getContentPane().add(game);
-            game.requestFocus();
-        }
-    }
-
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setLocation(280,100);
+                                   
+		this.setVisible(true);
+	}
+	
+	private void removeContent() {
+		this.getContentPane().removeAll();
+		this.getContentPane().repaint();
+	}
+	
+	public void endGame(long point) {
+		removeContent();
+		this.getContentPane().add(new Menu(point,this));
+	}
+        
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getActionCommand().equals("restart")) {
+			removeContent();
+			Game game = new Game();
+			this.getContentPane().add(game);
+			game.requestFocus();
+		}
+	}
+        
 }
+
+    
+    
+
+
