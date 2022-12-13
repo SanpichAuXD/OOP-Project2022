@@ -28,7 +28,7 @@ public class Game extends JPanel implements KeyListener, DocumentListener {
     private static int speed = 10, dogSize = 60, waveHeight = 50;
     private static int base = 400, xStart = 1000;
     private long point = 0, lastPress = 0;
-    private boolean check;
+    private boolean correct;
     public ArrayList<String> bank;
 
     private Dog dog = new Dog(0, base - 50);
@@ -191,6 +191,31 @@ public class Game extends JPanel implements KeyListener, DocumentListener {
             if(current.vord.equals(display.tf.getText())) {
                             it.remove();
                             System.out.println("Correct");
+                           correct = true;
+            }
+        }
+                return false;
+        }
+    public boolean check2(){
+            java.util.Iterator<Wave> it = waveSet2.iterator();
+        while(it.hasNext()) {
+            Wave current = it.next();
+            if(current.vord.equals(display.tf.getText())) {
+                            it.remove();
+                            System.out.println("Correct");
+                            correct = true;
+            }
+        }
+                return false;
+        }
+    public boolean check3(){
+            java.util.Iterator<Wave> it = waveSet3.iterator();
+        while(it.hasNext()) {
+            Wave current = it.next();
+            if(current.vord.equals(display.tf.getText())) {
+                            it.remove();
+                           correct = true;
+                            System.out.println("Correct");
             }
         }
                 return false;
@@ -204,11 +229,35 @@ public class Game extends JPanel implements KeyListener, DocumentListener {
         public void removeUpdate(DocumentEvent e) {
         }
         public void insertUpdate(DocumentEvent e) {
-            System.out.println(display.tf.getText());
             check();
+            check2();
+            check3();
+            empty(correct);
+            
             
         }
-       
+////        public void empty(boolean correct){
+//            if (correct){
+//                display.tf.setText("");
+//            }
+////        }
+        private void  empty(boolean correct) {
+
+    Runnable doempty = new Runnable() {
+        @Override
+        public void run() {
+            // your highlight code
+            if (correct){
+                display.tf.setText("");
+                setCorrect(false);
+            }
+        }
+    };       
+    SwingUtilities.invokeLater(doempty);
+}
+       public void setCorrect(boolean c){
+           this.correct = c;
+       }
     
 
     @Override
