@@ -199,11 +199,20 @@ public class Game extends JPanel implements KeyListener, DocumentListener {
         }
         public void insertUpdate(DocumentEvent e) {
             System.out.println(display.tf.getText());
-//            if(display.tf.getText().equals(wave.vord)){
-//                
-//                System.out.println("correct");
-//            }
+            check();
             
+        }
+        public boolean check(){
+            java.util.Iterator<Wave> it = waveSet1.iterator();
+		while(it.hasNext()) {
+			Wave current = it.next();
+                                        
+			if(current.vord.equals(display.tf.getText())) {
+                                                        System.out.println("Correct");
+				
+			}
+		}
+                return false;
         }
     
 
