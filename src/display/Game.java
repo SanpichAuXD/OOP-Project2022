@@ -36,7 +36,7 @@ public class Game extends JPanel implements KeyListener, DocumentListener {
     static Wave wave;
 
 //	------------------Wave SIze ----------------------------
-    private ArrayList<Wave> waveSet1 = makeWave1(10);
+    private ArrayList<Wave> waveSet1 = makeWave1(2);
     private ArrayList<Wave> waveSet2 = makeWave2(10);
     private ArrayList<Wave> waveSet3 = makeWave3(10);
 //--------------------Cloud--------------------------------
@@ -47,12 +47,7 @@ public class Game extends JPanel implements KeyListener, DocumentListener {
         this.setBounds(0, 0, 1000, 600);
         this.addKeyListener(this);
         this.setLayout(null);
-        try {
-            bank = GetVo.getWords("cum.txt");
-            System.out.println(bank);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       
         this.setFocusable(true);
     }
 
@@ -111,7 +106,7 @@ public class Game extends JPanel implements KeyListener, DocumentListener {
 
     private ArrayList makeWave1(int size) {
         Random rand = new Random();
-        bank = createBank();
+        bank = createBank(1);
         ArrayList<Wave> waveSet1 = new ArrayList<Wave>();
         int far = 500;
 
@@ -124,7 +119,7 @@ public class Game extends JPanel implements KeyListener, DocumentListener {
     }
 
     private ArrayList makeWave2(int size) {
-        bank = createBank();
+        bank = createBank(2);
         ArrayList<Wave> waveSet2 = new ArrayList<Wave>();
         Random rand = new Random();
 
@@ -139,7 +134,7 @@ public class Game extends JPanel implements KeyListener, DocumentListener {
 
     private ArrayList makeWave3(int size) {
         ArrayList<Wave> waveSet3 = new ArrayList<Wave>();
-        bank = createBank();
+        bank = createBank(3);
         Random rand = new Random();
 
         int far = 250;
@@ -161,10 +156,10 @@ public class Game extends JPanel implements KeyListener, DocumentListener {
         return envSet;
     }
 
-    public ArrayList createBank() {
+    public ArrayList createBank(int i) {
 
         try {
-            bank = GetVo.getWords("cum.txt");
+            bank = GetVo.getWords("cum"+ i +".txt");
 
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
@@ -189,6 +184,17 @@ public class Game extends JPanel implements KeyListener, DocumentListener {
             }
         }
     }
+    public boolean check(){
+            java.util.Iterator<Wave> it = waveSet1.iterator();
+        while(it.hasNext()) {
+            Wave current = it.next();
+            if(current.vord.equals(display.tf.getText())) {
+                            it.remove();
+                            System.out.println("Correct");
+            }
+        }
+                return false;
+        }
 //    public Wave getWave(){
 //        return wave;
 //    }
@@ -202,18 +208,7 @@ public class Game extends JPanel implements KeyListener, DocumentListener {
             check();
             
         }
-        public boolean check(){
-            java.util.Iterator<Wave> it = waveSet1.iterator();
-		while(it.hasNext()) {
-			Wave current = it.next();
-                                        
-			if(current.vord.equals(display.tf.getText())) {
-                                                        System.out.println("Correct");
-				
-			}
-		}
-                return false;
-        }
+       
     
 
     @Override
