@@ -29,7 +29,7 @@ public class Game extends JPanel implements KeyListener, DocumentListener {
     private static int base = 400, xStart = 1000;
     private long point = 0, lastPress = 0;
     private boolean check;
-    private ArrayList<String> bank;
+    public ArrayList<String> bank;
 
     private Dog dog = new Dog(0, base - 50);
     static Display display;
@@ -49,6 +49,7 @@ public class Game extends JPanel implements KeyListener, DocumentListener {
         this.setLayout(null);
         try {
             bank = GetVo.getWords("cum.txt");
+            System.out.println(bank);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -197,9 +198,11 @@ public class Game extends JPanel implements KeyListener, DocumentListener {
         public void removeUpdate(DocumentEvent e) {
         }
         public void insertUpdate(DocumentEvent e) {
-            if(display.tf.getText().equals(wave.vord)){
-                System.out.println("correct");
-            }
+            System.out.println(display.tf.getText());
+//            if(display.tf.getText().equals(wave.vord)){
+//                
+//                System.out.println("correct");
+//            }
             
         }
     
@@ -226,6 +229,8 @@ public class Game extends JPanel implements KeyListener, DocumentListener {
 
     public static void main(String[] arg) {
         display = new Display();
+        
+         
     }
 
 

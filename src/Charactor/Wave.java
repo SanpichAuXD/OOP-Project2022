@@ -31,15 +31,14 @@ public class Wave {
         this.timeMove = new Timer(speed, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (x>=-10){
-                x -= 30;
+                x -= 10;
                 page.repaint();
                 }
                 
             }
         });
         this.timeMove.start();
-        System.out.println(x);
-        
+               
     }
 
     public BufferedImage getImage() {

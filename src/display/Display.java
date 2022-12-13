@@ -10,17 +10,23 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+
 public class Display extends JFrame implements ActionListener{
 
 	private static final long serialVersionUID = 1L;
 	private Dimension size = new Dimension(1000,700);
         private JPanel p;
         public JTextField tf;
+        private Game g;
 		
 	public Display() {
 		this.setting();
+               
                                     this.add(p, BorderLayout.SOUTH);
-		this.getContentPane().add(new Game(),BorderLayout.CENTER);
+                                    g = new Game();
+                                    tf.getDocument().addDocumentListener(g);
+                                    System.out.println(g.bank);
+		this.getContentPane().add(g,BorderLayout.CENTER);
                 
 	}
 	
@@ -28,6 +34,7 @@ public class Display extends JFrame implements ActionListener{
 		this.setTitle("Dog ninja");
 		this.setSize(size);
                                     this.setLayout(new BorderLayout());
+                                    
                                     tf = new JTextField(20);
                                     tf.setBorder(new EmptyBorder(5,0,5,0));
                                     tf.setFont(Element.getFont(30));
