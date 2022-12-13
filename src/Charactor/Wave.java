@@ -11,37 +11,45 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Wave {
-                Random rand = new Random();
-		public int speed;
-		public int x;
-		public int y;
-		Timer timeMove;
-		public Wave(int x,int y,int speed,JPanel page) {
-			this.x = x;
-			this.y = y;
-			this.speed = speed;
-			this.move(page);
-		}
+
+    Random rand = new Random();
+    public int speed;
+    public int x;
+    public int y;
+    public String vord;
+    Timer timeMove;
+
+    public Wave(int x, int y, int speed,String vord, JPanel page) {
+        this.x = x;
+        this.y = y;
+        this.speed = speed;
+        this.vord = vord; 
+        this.move(page);
+    }
+
+    public void move(JPanel page) {
+        this.timeMove = new Timer(speed, new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (x>=-10){
+                x -= 30;
+                page.repaint();
+                }
                 
-		
-		public void move(JPanel page) {
-				 this.timeMove = new Timer(speed,new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-							x -= 30;
-							page.repaint();
-					}
-				});
-				 this.timeMove.start();
-		}
-		
-		public BufferedImage getImage() {
-			BufferedImage image = null;
-			try {
-				 image = ImageIO.read(new File("img\\tree.png"));
-				 return image;
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return image;
-		}
+            }
+        });
+        this.timeMove.start();
+        System.out.println(x);
+        
+    }
+
+    public BufferedImage getImage() {
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(new File("img\\tree.png"));
+            return image;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return image;
+    }
 }

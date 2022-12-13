@@ -1,26 +1,32 @@
 package display;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
+import javax.swing.JTextField;
 
 public class Display extends JFrame implements ActionListener{
 
 	private static final long serialVersionUID = 1L;
 	private Dimension size = new Dimension(1000,600);
+        private JTextField tf = new JTextField(10);
 		
 	public Display() {
 		this.setting();
+                                    this.add(tf, BorderLayout.SOUTH);
 		this.getContentPane().add(new Game());
 	}
 	
 	private void setting() {
 		this.setTitle("Dog ninja");
 		this.setSize(size);
+                this.setLayout(new BorderLayout());
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocation(280,100);
+                                   
 		this.setVisible(true);
 	}
 	
