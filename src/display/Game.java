@@ -18,8 +18,10 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
-public class Game extends JPanel implements KeyListener {
+public class Game extends JPanel implements KeyListener, DocumentListener {
 
     private static final long serialVersionUID = 1L;
 
@@ -31,6 +33,8 @@ public class Game extends JPanel implements KeyListener {
 
     private Dog dog = new Dog(0, base - 50);
     static Display display;
+    static Wave wave;
+
 //	------------------Wave SIze ----------------------------
     private ArrayList<Wave> waveSet1 = makeWave1(10);
     private ArrayList<Wave> waveSet2 = makeWave2(10);
@@ -44,7 +48,7 @@ public class Game extends JPanel implements KeyListener {
         this.addKeyListener(this);
         this.setLayout(null);
         try {
-            bank = GetVo.getWords("C:\\\\oop\\\\test_oop\\\\font\\\\cum.txt");
+            bank = GetVo.getWords("cum.txt");
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -159,7 +163,7 @@ public class Game extends JPanel implements KeyListener {
     public ArrayList createBank() {
 
         try {
-            bank = GetVo.getWords("C:\\oop\\test_oop\\font\\cum.txt");
+            bank = GetVo.getWords("cum.txt");
 
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
@@ -172,7 +176,7 @@ public class Game extends JPanel implements KeyListener {
         g2.drawImage(wave.getImage(), wave.x, (wave.y - waveHeight), 50, waveHeight + 10, null);
         if (Event.checkHit(dog, wave)) {
             g2.setColor(new Color(240, 98, 69));
-            System.out.println("hit");
+//            System.out.println("hit");
             g2.setStroke(new BasicStroke(10.0f));
             g2.draw(new RoundRectangle2D.Double(5, 5, 977, 555, 0, 10));
             dog.health -= 20;
@@ -184,6 +188,21 @@ public class Game extends JPanel implements KeyListener {
             }
         }
     }
+//    public Wave getWave(){
+//        return wave;
+//    }
+    
+        public void changedUpdate(DocumentEvent e) {
+        }
+        public void removeUpdate(DocumentEvent e) {
+        }
+        public void insertUpdate(DocumentEvent e) {
+            if(display.tf.getText().equals(wave.vord)){
+                System.out.println("correct");
+            }
+            
+        }
+    
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -208,5 +227,6 @@ public class Game extends JPanel implements KeyListener {
     public static void main(String[] arg) {
         display = new Display();
     }
+
 
 }
