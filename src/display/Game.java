@@ -23,7 +23,7 @@ public class Game extends JPanel implements  DocumentListener {
 
     private static final long serialVersionUID = 1L;
 
-    private static int speed =100, dogSize =60, waveHeight = 50;
+    private static int speed = 100, dogSize =60, waveHeight = 50;
     private static int base = 400, xStart = 1000;
     private long point = 0;
     private boolean correct1, correct2, correct3;
@@ -35,9 +35,9 @@ public class Game extends JPanel implements  DocumentListener {
     static Wave wave;
 
 //	------------------Wave SIze ----------------------------
-    private ArrayList<Wave> waveSet1 = makeWave1(4);
-    private ArrayList<Wave> waveSet2 = makeWave2(4);
-    private ArrayList<Wave> waveSet3 = makeWave3(4);
+    private ArrayList<Wave> waveSet1 = makeWave1(2);
+    private ArrayList<Wave> waveSet2 = makeWave2(2);
+    private ArrayList<Wave> waveSet3 = makeWave3(2);
 //--------------------Cloud--------------------------------
     private Environment[] envSet = makeEnv(2, Environment.CLOUD);
     private Environment building = new Environment(xStart - 100, base - 150, this, Environment.BUILDING, 4);
@@ -102,23 +102,22 @@ public class Game extends JPanel implements  DocumentListener {
     
     private void createWave(int set){
          int n1 = rand.nextInt(1, 29);
-         int fars = rand.nextInt(0, 500);
-         int fars2 = rand.nextInt(0, 500);
+         int fars = rand.nextInt(100, 150);
          switch (set) {
-            case 1 -> waveSet1.add(new Wave(xStart + fars +fars2 ,  base - 150, speed, bank.get(n1), this));
-            case 2 -> waveSet2.add(new Wave(xStart + fars +fars2 ,  base - 150, speed, bank.get(n1), this));
-            case 3 -> waveSet3.add(new Wave(xStart + fars +fars2 , base - 300, speed, bank.get(n1), this));
+            case 1 -> waveSet1.add(new Wave(xStart + fars  ,  base - 150, speed, bank.get(n1), this));
+            case 2 -> waveSet2.add(new Wave(xStart + fars ,  base - 150, speed, bank.get(n1), this));
+            case 3 -> waveSet3.add(new Wave(xStart + fars , base - 300, speed, bank.get(n1), this));
           }
     }
 
     private ArrayList makeWave1(int size) {
         bank = createBank(1);
         ArrayList<Wave> waveSet1 = new ArrayList<Wave>();
-        int far = rand.nextInt(0,500);
+        int far = 100;
         for (int i = 0; i < size; i++) {
             int n1 = rand.nextInt(1, 29);
             waveSet1.add(new Wave(xStart + far , base, speed, bank.get(n1), this));
-            far += 500 + far;
+            far = far + rand.nextInt(200,300);
         }
         return waveSet1;
     }
@@ -126,11 +125,11 @@ public class Game extends JPanel implements  DocumentListener {
     private ArrayList makeWave2(int size) {
         bank = createBank(2);
         ArrayList<Wave> waveSet2 = new ArrayList<Wave>();
-        int far = rand.nextInt(0,500);
+        int far = 0;
         for (int i = 0; i < size; i++) {
             int n1 = rand.nextInt(1, 29);
             waveSet2.add(new Wave(xStart + far, base - 150, speed, bank.get(n1), this));
-            far += 500 + far;
+            far = far + rand.nextInt(200,300);
         }
         return waveSet2;
     }
@@ -138,11 +137,11 @@ public class Game extends JPanel implements  DocumentListener {
     private ArrayList makeWave3(int size) {
         ArrayList<Wave> waveSet3 = new ArrayList<Wave>();
         bank = createBank(3);
-        int far = rand.nextInt(0,500);
+        int far = 200;
         for (int i = 0; i < size; i++) {
             int n1 = rand.nextInt(1, 29);
             waveSet3.add(new Wave(xStart + far, base - 300, speed, bank.get(n1), this));
-            far += 500 + far;
+            far = far + rand.nextInt(200,300);
         }
         return waveSet3;
     }
