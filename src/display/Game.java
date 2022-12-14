@@ -28,7 +28,7 @@ public class Game extends JPanel implements KeyListener, DocumentListener {
     private static int speed = 10, dogSize = 60, waveHeight = 50;
     private static int base = 400, xStart = 1000;
     private long point = 0, lastPress = 0;
-    private boolean correct;
+    private boolean correct1, correct2, correct3;
     private Random rand = new Random();
     public ArrayList<String> bank;
 
@@ -37,8 +37,8 @@ public class Game extends JPanel implements KeyListener, DocumentListener {
     static Wave wave;
 
 //	------------------Wave SIze ----------------------------
-    private ArrayList<Wave> waveSet1 = makeWave1(4);
-    private ArrayList<Wave> waveSet2 = makeWave2(4);
+    private ArrayList<Wave> waveSet1 = makeWave1(1);
+    private ArrayList<Wave> waveSet2 = makeWave2(1);
     private ArrayList<Wave> waveSet3 = makeWave3(1);
 //--------------------Cloud--------------------------------
     private Environment[] envSet = makeEnv(2, Environment.CLOUD);
@@ -131,9 +131,12 @@ public class Game extends JPanel implements KeyListener, DocumentListener {
     }
     private void createWave(int set,int far){
          int n1 = rand.nextInt(1, 29);
-         if (set == 3){
-            waveSet3.add(new Wave(xStart + far, base - 300, speed, bank.get(n1), this));
-         }
+         int fars = rand.nextInt(1, far);
+         switch (set) {
+            case 1 -> waveSet2.add(new Wave(xStart + fars, base, speed, bank.get(n1), this));
+            case 2 -> waveSet2.add(new Wave(xStart + fars, base - 150, speed, bank.get(n1), this));
+            case 3 -> waveSet3.add(new Wave(xStart + fars, base - 300, speed, bank.get(n1), this));
+          }
     }
     private ArrayList makeWave3(int size) {
         ArrayList<Wave> waveSet3 = new ArrayList<Wave>();
@@ -179,7 +182,7 @@ public class Game extends JPanel implements KeyListener, DocumentListener {
             g2.setStroke(new BasicStroke(10.0f));
             g2.draw(new RoundRectangle2D.Double(5, 5, 977, 555, 0, 10));
             dog.health -= 20;
-            wave.x += 2000;
+            wave.x += rand.nextInt(1500, 2000);
             if (dog.health <= 0) {
                 display.endGame(this.point);
                 dog.health = new Dog().health;
@@ -191,10 +194,10 @@ public class Game extends JPanel implements KeyListener, DocumentListener {
             java.util.Iterator<Wave> it = waveSet1.iterator();
         while(it.hasNext()) {
             Wave current = it.next();
-            if(current.vord.equals(display.tf.getText())) {
+            if(current.vord.equals(display.tf.getText()) && current.x < 1000) {
                             it.remove();
                             System.out.println("Correct");
-                           correct = true;
+                           correct1 = true;
             }
         }
                 return false;
@@ -203,10 +206,10 @@ public class Game extends JPanel implements KeyListener, DocumentListener {
             java.util.Iterator<Wave> it = waveSet2.iterator();
         while(it.hasNext()) {
             Wave current = it.next();
-            if(current.vord.equals(display.tf.getText())) {
+            if(current.vord.equals(display.tf.getText()) && current.x < 1000) {
                             it.remove();
                             System.out.println("Correct");
-                            correct = true;
+                            correct2 = true;
             }
         }
                 return false;
@@ -216,9 +219,8 @@ public class Game extends JPanel implements KeyListener, DocumentListener {
         while(it.hasNext()) {
             Wave current = it.next();
             if(current.vord.equals(display.tf.getText()) && current.x < 1000) {
-                 
                             it.remove();
-                           correct = true;
+                           correct3 = true;
                             System.out.println("Correct");
             }
             
@@ -232,37 +234,52 @@ public class Game extends JPanel implements KeyListener, DocumentListener {
         public void changedUpdate(DocumentEvent e) {
         }
         public void removeUpdate(DocumentEvent e) {
-            createWave(3, 100);
+            if(display.tf.getText().equals("") && correct1 == true){
+                createWave(1, 500);
+            }else if(display.tf.getText().equals("") && correct2 == true){
+                createWave(2, 500);
+            }else if(display.tf.getText().equals("") && correct3 == true){
+                createWave(3, 500);
+            }
         }
+        
         public void insertUpdate(DocumentEvent e) {
             check();
             check2();
             check3();
-            empty(correct);
+            empty(correct1, correct2, correct3);
             
             
         }
-////        public void empty(boolean correct){
-//            if (correct){
-//                display.tf.setText("");
-//            }
-////        }
-        private void  empty(boolean correct) {
+
+        private void  empty(boolean correct1, boolean correct2, boolean correct3) {
 
     Runnable doempty = new Runnable() {
         @Override
         public void run() {
             // your highlight code
-            if (correct){
+            if (correct1){
                 display.tf.setText("");
-                setCorrect(false);
+                setCorrect1(false);
+            }else if(correct2){
+                display.tf.setText("");
+                setCorrect2(false);
+            }else if(correct3){
+                display.tf.setText("");
+                setCorrect3(false);
             }
         }
     };       
     SwingUtilities.invokeLater(doempty);
 }
-       public void setCorrect(boolean c){
-           this.correct = c;
+       public void setCorrect1(boolean c){
+           this.correct1 = c;
+       }
+       public void setCorrect2(boolean c){
+           this.correct2 = c;
+       }
+       public void setCorrect3(boolean c){
+           this.correct3 = c;
        }
     
 

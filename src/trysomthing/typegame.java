@@ -6,15 +6,10 @@ package trysomthing;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
-import java.io.IOException;
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.text.*;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 
 public class typegame extends JFrame{
     JButton b=null;
@@ -25,14 +20,13 @@ public class typegame extends JFrame{
     int score=0;
     int displayed=0;
     ArrayList<String>  wordlist;
-    ArrayList<String>  pic;
-    WordRun word1=null;
-    WordRun word2=null;
-    WordRun word3=null;
+    WordRun1 word1=null;
+    WordRun2 word2=null;
+    WordRun3 word3=null;
     
     public typegame(){
         super("Typing Tutor");
-        setSize(400,400);
+        setSize(600,600);
         setLayout(new BorderLayout());
         
         b=new JButton("Start");
@@ -58,13 +52,6 @@ public class typegame extends JFrame{
         
         add(p2,BorderLayout.SOUTH);
         
-//        pic = new ArrayList<String>();
-//        pic.add(0,"img\\tree.png");
-//        pic.add(1,"img\\tree.png");
-//        pic.add(2,"img\\tree.png");
-        
-        
-        
         wordlist=new ArrayList<String>();
         wordlist.add(0,"abandon");
         wordlist.add(1,"abate");
@@ -77,9 +64,9 @@ public class typegame extends JFrame{
         wordlist.add(8,"abnormal");
         wordlist.add(9,"aboard");
         
-        word1=new WordRun();
-        word2=new WordRun();
-        word3=new WordRun();
+        word1=new WordRun1();
+        word2=new WordRun2();
+        word3=new WordRun3();
         
         word1.st=null;
         word2.st=null;
@@ -108,12 +95,10 @@ public class typegame extends JFrame{
             }
         }
     }
-    class WordRun implements Runnable{
+    class WordRun1 implements Runnable{
         String st=null;
-        String img = null;
         int posx;
         int posy;
-//        Graphics2D g2;
         
         public void run(){
             try{
@@ -122,12 +107,14 @@ public class typegame extends JFrame{
                     if((st==null)||(posy==p.getHeight())){
                         rand=new Random();
                         Thread.currentThread().sleep(rand.nextInt(1000));
-                        img= pic.get(rand.nextInt(3));
+                        st=wordlist.get(rand.nextInt(10));
                         posy=0;
                         do{
-                            posx=rand.nextInt(p.getWidth());
+//                            posx=rand.nextInt(p.getWidth());
+                        posx = 100;
                         }while(posx>(p.getWidth()-100));
                         tf.setText("");
+                        displayed++;
                         l2.setText(displayed+"");
                     }
                     else{
@@ -140,6 +127,71 @@ public class typegame extends JFrame{
             }    
         }
     }
+    
+    class WordRun2 implements Runnable{
+        String st=null;
+        int posx;
+        int posy;
+        
+        public void run(){
+            try{
+                Random rand=null;
+                while(true){
+                    if((st==null)||(posy==p.getHeight())){
+                        rand=new Random();
+                        Thread.currentThread().sleep(rand.nextInt(1000));
+                        st=wordlist.get(rand.nextInt(10));
+                        posy=0;
+                        do{
+                            posx= 275;
+                        } while(posx>(p.getWidth()-100));
+                        tf.setText("");
+                        displayed++;
+                        l2.setText(displayed+"");
+                    }
+                    else{
+                        Thread.currentThread().sleep(20);
+                        posy++;
+                    } 
+                    repaint();
+                }
+            }catch(Exception e){
+            }    
+        }
+    }
+    
+    class WordRun3 implements Runnable{
+        String st=null;
+        int posx;
+        int posy;
+        
+        public void run(){
+            try{
+                Random rand=null;
+                while(true){
+                    if((st==null)||(posy==p.getHeight())){
+                        rand=new Random();
+                        Thread.currentThread().sleep(rand.nextInt(1000));
+                        st=wordlist.get(rand.nextInt(10));
+                        posy=0;
+                        do{
+                            posx=425;
+                        }while(posx>(p.getWidth()-100));
+                        tf.setText("");
+                        displayed++;
+                        l2.setText(displayed+"");
+                    }
+                    else{
+                        Thread.currentThread().sleep(20);
+                        posy++;
+                    } 
+                    repaint();
+                }
+            }catch(Exception e){
+            }    
+        }
+    }
+    
     class ButtonHandler implements ActionListener{
         public void actionPerformed(ActionEvent e){
             if(e.getActionCommand()=="Start"){
@@ -155,7 +207,7 @@ public class typegame extends JFrame{
     class ListenText implements DocumentListener{
         public void changedUpdate(DocumentEvent e) {
         }
-        public void removeUpdate(DocumentEvent e) {
+        public void removeUpdate(DocumentEvent e) {    
         }
         public void insertUpdate(DocumentEvent e) {
             if(tf.getText().equals(word1.st)){

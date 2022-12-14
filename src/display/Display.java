@@ -29,6 +29,10 @@ public class Display extends JFrame implements ActionListener{
 		this.getContentPane().add(g,BorderLayout.CENTER);
                 
 	}
+        
+        public JTextField getTf(){
+            return tf;
+        }
 	
 	private void setting() {
 		this.setTitle("Dog ninja");
