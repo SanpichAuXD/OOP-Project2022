@@ -30,9 +30,6 @@ public class Display extends JFrame implements ActionListener{
                 
 	}
         
-        public JTextField getTf(){
-            return tf;
-        }
 	
 	private void setting() {
 		this.setTitle("Dog ninja");

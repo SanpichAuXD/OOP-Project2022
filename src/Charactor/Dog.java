@@ -12,7 +12,7 @@ import javax.swing.Timer;
 public class Dog{
 	public int x ;
 	public int y;
-	public int health=180000;
+	public int health=180;
 	public static int speed=90;
 	
 	public Dog() {

@@ -1,8 +1,6 @@
 package display;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -21,13 +19,13 @@ import java.util.logging.Logger;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-public class Game extends JPanel implements KeyListener, DocumentListener {
+public class Game extends JPanel implements  DocumentListener {
 
     private static final long serialVersionUID = 1L;
 
-    private static int speed = 10, dogSize = 60, waveHeight = 50;
+    private static int speed = 100, dogSize = 60, waveHeight = 50;
     private static int base = 400, xStart = 1000;
-    private long point = 0, lastPress = 0;
+    private long point = 0;
     private boolean correct1, correct2, correct3;
     private Random rand = new Random();
     public ArrayList<String> bank;
@@ -37,17 +35,16 @@ public class Game extends JPanel implements KeyListener, DocumentListener {
     static Wave wave;
 
 //	------------------Wave SIze ----------------------------
-    private ArrayList<Wave> waveSet1 = makeWave1(1);
-    private ArrayList<Wave> waveSet2 = makeWave2(1);
-    private ArrayList<Wave> waveSet3 = makeWave3(1);
+    private ArrayList<Wave> waveSet1 = makeWave1(3);
+    private ArrayList<Wave> waveSet2 = makeWave2(3);
+    private ArrayList<Wave> waveSet3 = makeWave3(3);
 //--------------------Cloud--------------------------------
     private Environment[] envSet = makeEnv(2, Environment.CLOUD);
     private Environment building = new Environment(xStart - 100, base - 150, this, Environment.BUILDING, 4);
 
     public Game() {
         this.setBounds(0, 0, 1000, 600);
-        this.addKeyListener(this);
-        this.setLayout(null);
+//        this.setLayout();
        
         this.setFocusable(true);
     }
@@ -76,7 +73,6 @@ public class Game extends JPanel implements KeyListener, DocumentListener {
             for (Wave item : waveSet3) {
                 drawWave(item, g2);
             }
-            this.point += 1;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -104,6 +100,16 @@ public class Game extends JPanel implements KeyListener, DocumentListener {
             e.printStackTrace();
         }
     }
+    
+    private void createWave(int set,int far){
+         int n1 = rand.nextInt(1, 29);
+         int fars = rand.nextInt(1, far);
+         switch (set) {
+            case 1 -> waveSet2.add(new Wave(xStart + fars, base, speed, bank.get(n1), this));
+            case 2 -> waveSet2.add(new Wave(xStart + fars, base - 150, speed, bank.get(n1), this));
+            case 3 -> waveSet3.add(new Wave(xStart + fars, base - 300, speed, bank.get(n1), this));
+          }
+    }
 
     private ArrayList makeWave1(int size) {
         bank = createBank(1);
@@ -129,20 +135,10 @@ public class Game extends JPanel implements KeyListener, DocumentListener {
         }
         return waveSet2;
     }
-    private void createWave(int set,int far){
-         int n1 = rand.nextInt(1, 29);
-         int fars = rand.nextInt(1, far);
-         switch (set) {
-            case 1 -> waveSet2.add(new Wave(xStart + fars, base, speed, bank.get(n1), this));
-            case 2 -> waveSet2.add(new Wave(xStart + fars, base - 150, speed, bank.get(n1), this));
-            case 3 -> waveSet3.add(new Wave(xStart + fars, base - 300, speed, bank.get(n1), this));
-          }
-    }
+    
     private ArrayList makeWave3(int size) {
         ArrayList<Wave> waveSet3 = new ArrayList<Wave>();
         bank = createBank(3);
-        Random rand = new Random();
-
         int far = 250;
         for (int i = 0; i < size; i++) {
             int n1 = rand.nextInt(1, 29);
@@ -174,15 +170,16 @@ public class Game extends JPanel implements KeyListener, DocumentListener {
     }
 
     private void drawWave(Wave wave, Graphics2D g2) {
-        g2.drawString(wave.vord, wave.x, (wave.y  - waveHeight));
+        FontMetrics fm = g2.getFontMetrics(g2.getFont());
+        g2.drawString(wave.vord, wave.x + 25 - fm.stringWidth(wave.vord) /2, (wave.y - waveHeight));
         g2.drawImage(wave.getImage(), wave.x, (wave.y - waveHeight), 50, waveHeight + 10, null);
         if (Event.checkHit(dog, wave)) {
             g2.setColor(new Color(240, 98, 69));
 //            System.out.println("hit");
             g2.setStroke(new BasicStroke(10.0f));
             g2.draw(new RoundRectangle2D.Double(5, 5, 977, 555, 0, 10));
-            dog.health -= 20;
-            wave.x += rand.nextInt(1500, 2000);
+            dog.health -= 30;
+            wave.x += 10000;
             if (dog.health <= 0) {
                 display.endGame(this.point);
                 dog.health = new Dog().health;
@@ -190,7 +187,7 @@ public class Game extends JPanel implements KeyListener, DocumentListener {
             }
         }
     }
-    public boolean check(){
+    public boolean check1(){
             java.util.Iterator<Wave> it = waveSet1.iterator();
         while(it.hasNext()) {
             Wave current = it.next();
@@ -227,31 +224,30 @@ public class Game extends JPanel implements KeyListener, DocumentListener {
         }
                 return false;
         }
-//    public Wave getWave(){
-//        return wave;
-//    }
     
         public void changedUpdate(DocumentEvent e) {
         }
         public void removeUpdate(DocumentEvent e) {
             if(display.tf.getText().equals("") && correct1 == true){
+                this.point += 10;
                 createWave(1, 500);
             }else if(display.tf.getText().equals("") && correct2 == true){
+                this.point += 10;
                 createWave(2, 500);
             }else if(display.tf.getText().equals("") && correct3 == true){
+                this.point += 10;
                 createWave(3, 500);
             }
         }
         
         public void insertUpdate(DocumentEvent e) {
-            check();
+            check1();
             check2();
             check3();
             empty(correct1, correct2, correct3);
             
             
         }
-
         private void  empty(boolean correct1, boolean correct2, boolean correct3) {
 
     Runnable doempty = new Runnable() {
@@ -269,7 +265,7 @@ public class Game extends JPanel implements KeyListener, DocumentListener {
                 setCorrect3(false);
             }
         }
-    };       
+    };
     SwingUtilities.invokeLater(doempty);
 }
        public void setCorrect1(boolean c){
@@ -282,26 +278,6 @@ public class Game extends JPanel implements KeyListener, DocumentListener {
            this.correct3 = c;
        }
     
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        if (System.currentTimeMillis() - lastPress > 600) {
-            if (e.getKeyCode() == 32 || e.getKeyCode() == 38) {
-                dog.jump(this);
-                lastPress = System.currentTimeMillis();
-            }
-        }
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-        //---
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        //---
-    }
 
     public static void main(String[] arg) {
         display = new Display();
