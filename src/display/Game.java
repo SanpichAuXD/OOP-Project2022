@@ -44,7 +44,7 @@ public class Game extends JPanel implements  DocumentListener {
 
     public Game() {
         this.setBounds(0, 0, 1000, 600);
-//        this.setLayout();
+        this.setLayout(null);
        
         this.setFocusable(true);
     }
