@@ -30,10 +30,8 @@ public class Wave {
     public void move(JPanel page) {
         this.timeMove = new Timer(speed, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (x>=-10){
                 x -= 10;
                 page.repaint();
-                }
                 
             }
         });
