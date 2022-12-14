@@ -104,7 +104,7 @@ public class Game extends JPanel implements  DocumentListener {
          int n1 = rand.nextInt(1, 29);
          int fars = rand.nextInt(200, 250);
          switch (set) {
-            case 1 -> waveSet1.add(new Wave(xStart + fars  ,  base - 150, speed, bank.get(n1), this));
+            case 1 -> waveSet1.add(new Wave(xStart + fars  ,base, speed, bank.get(n1), this));
             case 2 -> waveSet2.add(new Wave(xStart + fars ,  base - 150, speed, bank.get(n1), this));
             case 3 -> waveSet3.add(new Wave(xStart + fars , base - 300, speed, bank.get(n1), this));
           }
@@ -176,7 +176,7 @@ public class Game extends JPanel implements  DocumentListener {
             g2.setStroke(new BasicStroke(10.0f));
             g2.draw(new RoundRectangle2D.Double(5, 5, 977, 555, 0, 10));
             dog.health -= 60;
-            wave.x += 10000;
+            wave.x += 1500;
             if (dog.health <= 0) {
                 display.endGame(this.point);
                 dog.health = new Dog().health;
