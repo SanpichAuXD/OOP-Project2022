@@ -1,10 +1,9 @@
 plaster
 embox
 fantasy
-gregarious
 belong
 wire
-disagreement
+disagree
 laundry
 feminine
 breast
@@ -12,10 +11,9 @@ material
 loop
 sword
 tool
-acceptable
+accept
 gasp
 boom
-shareholder
 close
 area
 dawn
@@ -28,3 +26,4 @@ glare
 rent
 clash
 banana
+berry

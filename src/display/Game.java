@@ -23,7 +23,7 @@ public class Game extends JPanel implements  DocumentListener {
 
     private static final long serialVersionUID = 1L;
 
-    private static int speed = 100, dogSize =60, waveHeight = 50;
+    private static int speed = 350, dogSize =60, waveHeight = 50;
     private static int base = 400, xStart = 1000;
     private long point = 0;
     private boolean correct1, correct2, correct3;
@@ -102,7 +102,7 @@ public class Game extends JPanel implements  DocumentListener {
     
     private void createWave(int set){
          int n1 = rand.nextInt(1, 29);
-         int fars = rand.nextInt(100, 150);
+         int fars = rand.nextInt(200, 250);
          switch (set) {
             case 1 -> waveSet1.add(new Wave(xStart + fars  ,  base - 150, speed, bank.get(n1), this));
             case 2 -> waveSet2.add(new Wave(xStart + fars ,  base - 150, speed, bank.get(n1), this));
@@ -112,38 +112,38 @@ public class Game extends JPanel implements  DocumentListener {
 
     private ArrayList makeWave1(int size) {
         bank = createBank(1);
-        ArrayList<Wave> waveSet1 = new ArrayList<Wave>();
+        ArrayList<Wave> waveSet = new ArrayList<Wave>();
         int far = 100;
         for (int i = 0; i < size; i++) {
             int n1 = rand.nextInt(1, 29);
-            waveSet1.add(new Wave(xStart + far , base, speed, bank.get(n1), this));
+            waveSet.add(new Wave(xStart + far , base, speed, bank.get(n1), this));
             far = far + rand.nextInt(200,300);
         }
-        return waveSet1;
+        return waveSet;
     }
 
     private ArrayList makeWave2(int size) {
         bank = createBank(2);
-        ArrayList<Wave> waveSet2 = new ArrayList<Wave>();
+        ArrayList<Wave> waveSet = new ArrayList<Wave>();
         int far = 0;
         for (int i = 0; i < size; i++) {
             int n1 = rand.nextInt(1, 29);
-            waveSet2.add(new Wave(xStart + far, base - 150, speed, bank.get(n1), this));
+            waveSet.add(new Wave(xStart + far, base - 150, speed, bank.get(n1), this));
             far = far + rand.nextInt(200,300);
         }
-        return waveSet2;
+        return waveSet;
     }
     
     private ArrayList makeWave3(int size) {
-        ArrayList<Wave> waveSet3 = new ArrayList<Wave>();
+        ArrayList<Wave> waveSet = new ArrayList<Wave>();
         bank = createBank(3);
         int far = 200;
         for (int i = 0; i < size; i++) {
             int n1 = rand.nextInt(1, 29);
-            waveSet3.add(new Wave(xStart + far, base - 300, speed, bank.get(n1), this));
+            waveSet.add(new Wave(xStart + far, base - 300, speed, bank.get(n1), this));
             far = far + rand.nextInt(200,300);
         }
-        return waveSet3;
+        return waveSet;
     }
 
     private Environment[] makeEnv(int size, int eType) {
@@ -188,7 +188,7 @@ public class Game extends JPanel implements  DocumentListener {
             java.util.Iterator<Wave> it = waveSet1.iterator();
         while(it.hasNext()) {
             Wave current = it.next();
-            if(current.vord.equals(display.tf.getText()) && current.x < 1000) {
+            if(current.vord.equals(display.tf.getText()) && current.x < 950) {
                             it.remove();
                             System.out.println("Correct");
                            correct1 = true;
@@ -200,7 +200,7 @@ public class Game extends JPanel implements  DocumentListener {
             java.util.Iterator<Wave> it = waveSet2.iterator();
         while(it.hasNext()) {
             Wave current = it.next();
-            if(current.vord.equals(display.tf.getText()) && current.x < 1000) {
+            if(current.vord.equals(display.tf.getText()) && current.x < 950) {
                             it.remove();
                             System.out.println("Correct");
                             correct2 = true;
@@ -212,7 +212,7 @@ public class Game extends JPanel implements  DocumentListener {
             java.util.Iterator<Wave> it = waveSet3.iterator();
         while(it.hasNext()) {
             Wave current = it.next();
-            if(current.vord.equals(display.tf.getText()) && current.x < 1000) {
+            if(current.vord.equals(display.tf.getText()) && current.x < 950) {
                             it.remove();
                            correct3 = true;
                             System.out.println("Correct");
