@@ -29,6 +29,7 @@ public class Game extends JPanel implements KeyListener, DocumentListener {
     private static int base = 400, xStart = 1000;
     private long point = 0, lastPress = 0;
     private boolean correct;
+    private Random rand = new Random();
     public ArrayList<String> bank;
 
     private Dog dog = new Dog(0, base - 50);
@@ -36,9 +37,9 @@ public class Game extends JPanel implements KeyListener, DocumentListener {
     static Wave wave;
 
 //	------------------Wave SIze ----------------------------
-    private ArrayList<Wave> waveSet1 = makeWave1(2);
-    private ArrayList<Wave> waveSet2 = makeWave2(10);
-    private ArrayList<Wave> waveSet3 = makeWave3(10);
+    private ArrayList<Wave> waveSet1 = makeWave1(4);
+    private ArrayList<Wave> waveSet2 = makeWave2(4);
+    private ArrayList<Wave> waveSet3 = makeWave3(1);
 //--------------------Cloud--------------------------------
     private Environment[] envSet = makeEnv(2, Environment.CLOUD);
     private Environment building = new Environment(xStart - 100, base - 150, this, Environment.BUILDING, 4);
@@ -105,7 +106,6 @@ public class Game extends JPanel implements KeyListener, DocumentListener {
     }
 
     private ArrayList makeWave1(int size) {
-        Random rand = new Random();
         bank = createBank(1);
         ArrayList<Wave> waveSet1 = new ArrayList<Wave>();
         int far = 500;
@@ -121,8 +121,6 @@ public class Game extends JPanel implements KeyListener, DocumentListener {
     private ArrayList makeWave2(int size) {
         bank = createBank(2);
         ArrayList<Wave> waveSet2 = new ArrayList<Wave>();
-        Random rand = new Random();
-
         int far = 0;
         for (int i = 0; i < size; i++) {
             int n1 = rand.nextInt(1, 29);
@@ -131,7 +129,12 @@ public class Game extends JPanel implements KeyListener, DocumentListener {
         }
         return waveSet2;
     }
-
+    private void createWave(int set,int far){
+         int n1 = rand.nextInt(1, 29);
+         if (set == 3){
+            waveSet3.add(new Wave(xStart + far, base - 300, speed, bank.get(n1), this));
+         }
+    }
     private ArrayList makeWave3(int size) {
         ArrayList<Wave> waveSet3 = new ArrayList<Wave>();
         bank = createBank(3);
@@ -176,7 +179,7 @@ public class Game extends JPanel implements KeyListener, DocumentListener {
             g2.setStroke(new BasicStroke(10.0f));
             g2.draw(new RoundRectangle2D.Double(5, 5, 977, 555, 0, 10));
             dog.health -= 20;
-            wave.x += 10000;
+            wave.x += 2000;
             if (dog.health <= 0) {
                 display.endGame(this.point);
                 dog.health = new Dog().health;
@@ -212,11 +215,13 @@ public class Game extends JPanel implements KeyListener, DocumentListener {
             java.util.Iterator<Wave> it = waveSet3.iterator();
         while(it.hasNext()) {
             Wave current = it.next();
-            if(current.vord.equals(display.tf.getText())) {
+            if(current.vord.equals(display.tf.getText()) && current.x < 1000) {
+                 
                             it.remove();
                            correct = true;
                             System.out.println("Correct");
             }
+            
         }
                 return false;
         }
@@ -227,6 +232,7 @@ public class Game extends JPanel implements KeyListener, DocumentListener {
         public void changedUpdate(DocumentEvent e) {
         }
         public void removeUpdate(DocumentEvent e) {
+            createWave(3, 100);
         }
         public void insertUpdate(DocumentEvent e) {
             check();
