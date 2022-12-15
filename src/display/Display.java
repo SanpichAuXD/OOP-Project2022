@@ -19,30 +19,28 @@ public class Display extends JFrame implements ActionListener{
         private JPanel p;
         public JTextField tf;
         private Game g;
+        private Start start;
 		
 	public Display() {
 		this.setting();
-               
-                                    this.add(p, BorderLayout.SOUTH);
-                                    g = new Game();
-                                    tf.getDocument().addDocumentListener(g);
-                                    System.out.println(g.bank);
-		this.getContentPane().add(g,BorderLayout.CENTER);
-                
+                this.add(p, BorderLayout.SOUTH);
+                start = new Start(this);
+                tf.getDocument().addDocumentListener(g);
+//                                    System.out.println(g.bank);
+		this.getContentPane().add(start,BorderLayout.CENTER);
 	}
         
 	
 	private void setting() {
 		this.setTitle("Dog ninja");
 		this.setSize(size);
-                                    this.setLayout(new BorderLayout());
-                                    
-                                    tf = new JTextField(20);
-                                    tf.setBorder(new EmptyBorder(5,0,5,0));
-                                    tf.setFont(Element.getFont(30));
-                                    p = new JPanel();
-                                    p.setLayout(new FlowLayout());
-                                    p.add(tf);
+                this.setLayout(new BorderLayout());
+                tf = new JTextField(20);
+                tf.setBorder(new EmptyBorder(5,0,5,0));
+                tf.setFont(Element.getFont(30));
+                p = new JPanel();
+                p.setLayout(new FlowLayout());
+                p.add(tf);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocation(280,100);
                                    
@@ -76,6 +74,15 @@ public class Display extends JFrame implements ActionListener{
                         this.repaint();
                         game.requestFocus();
 		}
+                
+                if(e.getActionCommand().equals("start")) {
+                    removeContent();
+                    start = new Start(this);
+                    this.getContentPane().add(start, BorderLayout.CENTER);
+//                    this.revalidate();
+//                    this.repaint();
+                    start.requestFocus();
+                }
 	}
         
 }

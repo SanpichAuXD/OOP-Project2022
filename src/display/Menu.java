@@ -31,8 +31,8 @@ public class Menu extends JPanel {
                             showPoint.setForeground(Color.white);
                             
                             EleButton restart = new EleButton("restart",15,380,300,200,50);
-                            restart.addActionListener(main);	
-					
+                            restart.addActionListener(main);
+                            
                             this.add(showPoint);
                             this.add(status);
                             this.add(restart);

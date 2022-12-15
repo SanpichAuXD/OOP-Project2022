@@ -103,10 +103,13 @@ public class Game extends JPanel implements  DocumentListener {
     private void createWave(int set){
          int n1 = rand.nextInt(1, 29);
          int fars = rand.nextInt(200, 250);
+         ArrayList<String>  bank1 = createBank(1);
+         ArrayList<String>  bank2 = createBank(2);
+         ArrayList<String>  bank3 = createBank(3);
          switch (set) {
-            case 1 -> waveSet1.add(new Wave(xStart + fars  ,base, speed, bank.get(n1), this));
-            case 2 -> waveSet2.add(new Wave(xStart + fars ,  base - 150, speed, bank.get(n1), this));
-            case 3 -> waveSet3.add(new Wave(xStart + fars , base - 300, speed, bank.get(n1), this));
+            case 1 -> waveSet1.add(new Wave(xStart + fars  ,base, speed, bank1.get(n1), this));
+            case 2 -> waveSet2.add(new Wave(xStart + fars ,  base - 150, speed, bank2.get(n1), this));
+            case 3 -> waveSet3.add(new Wave(xStart + fars , base - 300, speed, bank3.get(n1), this));
           }
     }
 
