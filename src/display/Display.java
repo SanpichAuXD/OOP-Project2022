@@ -15,7 +15,7 @@ import javax.swing.border.EmptyBorder;
 public class Display extends JFrame implements ActionListener{
 
 	private static final long serialVersionUID = 1L;
-	private Dimension size = new Dimension(1000,700);
+	private Dimension size = new Dimension(1000,600);
         private JPanel p;
         public JTextField tf;
         private Game g;
@@ -23,9 +23,7 @@ public class Display extends JFrame implements ActionListener{
 		
 	public Display() {
 		this.setting();
-                this.add(p, BorderLayout.SOUTH);
                 start = new Start(this);
-               
 //                                    System.out.println(g.bank);
 		this.getContentPane().add(start,BorderLayout.CENTER);
 	}
@@ -77,6 +75,7 @@ public class Display extends JFrame implements ActionListener{
                 
                 if(e.getActionCommand().equals("start")) {
                     removeContent();
+                    this.add(p, BorderLayout.SOUTH);
                     g = new Game();
                      tf.getDocument().addDocumentListener(g);
                     this.getContentPane().add(g, BorderLayout.CENTER);

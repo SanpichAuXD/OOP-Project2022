@@ -43,7 +43,7 @@ public class Game extends JPanel implements  DocumentListener {
     private Environment building = new Environment(xStart - 100, base - 150, this, Environment.BUILDING, 4);
 
     public Game() {
-        this.setBounds(0, 0, 1000, 600);
+        this.setBounds(0, 0, 1000, 500);
 //        this.setLayout(null);
         this.setFocusable(true);
     }
