@@ -25,7 +25,7 @@ public class Display extends JFrame implements ActionListener{
 		this.setting();
                 this.add(p, BorderLayout.SOUTH);
                 start = new Start(this);
-                tf.getDocument().addDocumentListener(g);
+               
 //                                    System.out.println(g.bank);
 		this.getContentPane().add(start,BorderLayout.CENTER);
 	}
@@ -77,11 +77,12 @@ public class Display extends JFrame implements ActionListener{
                 
                 if(e.getActionCommand().equals("start")) {
                     removeContent();
-                    start = new Start(this);
-                    this.getContentPane().add(start, BorderLayout.CENTER);
-//                    this.revalidate();
-//                    this.repaint();
-                    start.requestFocus();
+                    g = new Game();
+                     tf.getDocument().addDocumentListener(g);
+                    this.getContentPane().add(g, BorderLayout.CENTER);
+                    this.revalidate();
+                    this.repaint();
+                    g.requestFocus();
                 }
 	}
         
