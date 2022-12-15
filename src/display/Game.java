@@ -23,7 +23,7 @@ public class Game extends JPanel implements  DocumentListener {
 
     private static final long serialVersionUID = 1L;
 
-    private static int speed = 350, dogSize =60, waveHeight = 50;
+    private static int speed = 150, dogSize =60, waveHeight = 50;
     private static int base = 400, xStart = 1000;
     private long point = 0;
     private boolean correct1, correct2, correct3;

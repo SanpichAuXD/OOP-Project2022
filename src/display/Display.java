@@ -24,8 +24,11 @@ public class Display extends JFrame implements ActionListener{
 	public Display() {
 		this.setting();
                 start = new Start(this);
+                
 //                                    System.out.println(g.bank);
 		this.getContentPane().add(start,BorderLayout.CENTER);
+                 this.revalidate();
+                        this.repaint();
 	}
         
 	
