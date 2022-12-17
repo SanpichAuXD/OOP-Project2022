@@ -45,8 +45,9 @@ public class Wave {
         String path;
         if (this.x < 1000){
          path = svapImage();
-        }else{
-             path = "img\\zom1.png";
+        }
+        else{
+             path = "img\\tree.png";
         }
         try {
             image = ImageIO.read(new File(path));
@@ -59,11 +60,12 @@ public class Wave {
 
     public String svapImage() {
 
-        String path = "img\\zom1.png";
-        if (num%2 == 0){
-            path = "img\\zom2.png";
-        }
-        num += .5;
+        String path = "img\\heart.png";
+//        if (num%2 == 0){
+//            path = "img\\zom1.png";
+//        }
+//        num += 1;
+//        System.out.println(num);
         return path;
     }
 }

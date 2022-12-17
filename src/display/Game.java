@@ -23,7 +23,7 @@ public class Game extends JPanel implements  DocumentListener {
 
     private static final long serialVersionUID = 1L;
 
-    private static int speed = 150, dogSize =60, waveHeight = 50;
+    private static int speed = 10, dogSize =60, waveHeight = 50;
     private static int base = 400, xStart = 1000;
     private long point = 0;
     private boolean correct1, correct2, correct3;
@@ -81,9 +81,9 @@ public class Game extends JPanel implements  DocumentListener {
         g2.drawImage(ImageIO.read(new File("img\\sky.png")), 0, 0, 2000, 1000, null);
         g2.drawImage(building.getImage(), building.x, building.y, 500, 200, null);
         g2.drawImage(ImageIO.read(new File("img\\dir.png")), 0, base + 10, 2000, 220, null);
-        for (Environment item : envSet) {
-            g2.drawImage(item.getImage(), item.x, item.y, 250, 160, null);
-        }
+//        for (Environment item : envSet) {
+//            g2.drawImage(item.getImage(), item.x, item.y, 250, 160, null);
+//        }
     }
 
     private void drawDogHealth(Graphics2D g2) {
