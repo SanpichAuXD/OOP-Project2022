@@ -16,8 +16,8 @@ public class Wave {
     public int speed;
     public int x;
     public int y;
-    public double num = 0;
-    public String vord;
+    public int num = 0;
+    public String vord, path;
     Timer timeMove;
 
     public Wave(int x, int y, int speed,String vord, JPanel page) {
@@ -25,14 +25,16 @@ public class Wave {
         this.y = y;
         this.speed = speed;
         this.vord = vord; 
+        path = "img\\zom0.png";
         this.move(page);
     }
 
     public void move(JPanel page) {
         this.timeMove = new Timer(speed, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                x -= 10;
+                x -= 5;
                 page.repaint();
+                path = svapImage();
                 
             }
         });
@@ -42,13 +44,6 @@ public class Wave {
 
    public BufferedImage getImage() {
         BufferedImage image = null;
-        String path;
-        if (this.x < 1000){
-         path = svapImage();
-        }
-        else{
-             path = "img\\tree.png";
-        }
         try {
             image = ImageIO.read(new File(path));
             return image;
@@ -60,12 +55,11 @@ public class Wave {
 
     public String svapImage() {
 
-        String path = "img\\dog.png";
-//        if (num%2 == 0){
-//            path = "img\\tree.png";
-//        }
-//        num += 1;
-//        System.out.println(num);
+        String path = "img\\zom0.png";
+        int pic = num%7;
+        path = "img\\zom"+pic+".png";
+        num += 1;
+        System.out.println(num);
         return path;
     }
 }
