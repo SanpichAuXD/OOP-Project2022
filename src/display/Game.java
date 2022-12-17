@@ -194,7 +194,7 @@ public class Game extends JPanel implements  DocumentListener {
             Wave current = it.next();
             if(current.vord.equals(display.tf.getText()) && current.x < 950) {
                             it.remove();
-                            System.out.println("Correct");
+                            System.out.println("Correct"+current.vord.length());
                            correct1 = true;
             }
         }
@@ -206,7 +206,7 @@ public class Game extends JPanel implements  DocumentListener {
             Wave current = it.next();
             if(current.vord.equals(display.tf.getText()) && current.x < 950) {
                             it.remove();
-                            System.out.println("Correct");
+                            System.out.println("Correct"+current.vord.length());
                             correct2 = true;
             }
         }
@@ -219,7 +219,7 @@ public class Game extends JPanel implements  DocumentListener {
             if(current.vord.equals(display.tf.getText()) && current.x < 950) {
                             it.remove();
                            correct3 = true;
-                            System.out.println("Correct");
+                            System.out.println("Correct"+current.vord.length());
             }
             
         }
