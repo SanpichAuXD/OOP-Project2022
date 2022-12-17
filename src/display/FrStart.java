@@ -20,11 +20,11 @@ import javax.imageio.ImageIO;
 import javax.swing.*;//JPanel
 
 public class FrStart extends JPanel {
-    
     private static final long serialVersionUID = 1L;
 
     public FrStart(ActionListener main) {
-        try {           
+        try {
+
             this.setBackground(new Color(17, 17, 51));
             this.setBounds(0, 0, 1000, 600);
             this.setFocusable(true);
@@ -38,10 +38,14 @@ public class FrStart extends JPanel {
 
             EleButton howtoplay = new EleButton("How To Play", 15, 380, 400, 200, 50);
             howtoplay.addActionListener(main);
+            
+            EleButton highScore = new EleButton("High Score", 15, 380, 470, 200, 50);
+            highScore.addActionListener(main);
 
             this.add(nameGame);
             this.add(start);
             this.add(howtoplay);
+            this.add(highScore);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -6,11 +6,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import Element.Element;
 import java.awt.FlowLayout;
+import java.io.File;
+import java.util.ArrayList;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-//test commit
+
 public class Display extends JFrame implements ActionListener {
 
     private static final long serialVersionUID = 1L;
@@ -20,10 +25,18 @@ public class Display extends JFrame implements ActionListener {
     private Game g;
     private FrStart start;
     private FrH2P htp;
+    private HighScore score;
+    private HighScore HS;
+    private long point;
+    private ArrayList<Long> keepScore = new ArrayList<>();
+    private Clip clip;
+    private Clip clip2;
+    private AudioInputStream audioInput;
+    private AudioInputStream audioInput2;
 
     public Display() {
         this.setting();
-        start = new FrStart(this);                   
+        start = new FrStart(this);             
         this.getContentPane().add(start, BorderLayout.CENTER);
         this.revalidate();
         this.repaint();
@@ -36,6 +49,7 @@ public class Display extends JFrame implements ActionListener {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocation(280, 100);
         this.setVisible(true);
+        playMenuSound();
     }
 
     public void Createpandtf() {
@@ -52,17 +66,51 @@ public class Display extends JFrame implements ActionListener {
         this.getContentPane().repaint();
     }
 
-    public void endGame(long point) {
+    public void endGame(long point1) {
         removeContent();
-        this.getContentPane().add(new Menu(point, this));
+        this.getContentPane().add(new Menu(point1, this));
+        System.out.println();
+        keepScore.add(point1);
         this.revalidate();
         this.repaint();
     }
-    public void highScore(long point1){
-        removeContent();
-        this.getContentPane().add(new HighScore(point1, this));
-        this.revalidate();
-        this.repaint();
+    
+    public void playInGameSound() {
+        try {
+            audioInput = AudioSystem.getAudioInputStream(new File("sound\\InGameSound.wav"));
+            clip = AudioSystem.getClip();
+            clip.open(audioInput);
+            playSound();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    public void playMenuSound() {
+        try {
+            audioInput = AudioSystem.getAudioInputStream(new File("sound\\MenuSound.wav"));
+            clip = AudioSystem.getClip();
+            clip.open(audioInput);
+            playSound();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    public void playSoundEffect(){
+        try {
+            audioInput2 = AudioSystem.getAudioInputStream(new File("sound\\Ugh.wav"));
+            clip2 = AudioSystem.getClip();
+            clip2.open(audioInput2);
+            clip2.start();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    public void playSound(){
+        clip.start();
+        clip.loop(Clip.LOOP_CONTINUOUSLY);
+    }
+    public void stopSound(){
+        clip.stop();
     }
 
     @Override
@@ -79,6 +127,8 @@ public class Display extends JFrame implements ActionListener {
             this.repaint();
             g.requestFocus();
             tf.requestFocusInWindow();
+            stopSound();
+            playInGameSound();
         }
         if (e.getActionCommand().equals("How To Play")) {
             removeContent();
@@ -90,11 +140,20 @@ public class Display extends JFrame implements ActionListener {
         }
         if (e.getActionCommand().equals("Home")) {
             removeContent();
-            start = new FrStart(this);                 
+            start = new FrStart(this);              
             this.getContentPane().add(start, BorderLayout.CENTER);
             this.revalidate();
             this.repaint();
+            playMenuSound();
             start.requestFocus();
+        }
+        if (e.getActionCommand().equals("High Score")) {
+            removeContent();
+            score = new HighScore(this,keepScore);
+            this.getContentPane().add(score, BorderLayout.CENTER);
+            this.revalidate();
+            this.repaint();
+            score.requestFocus();
         }
     }
 

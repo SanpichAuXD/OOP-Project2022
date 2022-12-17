@@ -17,14 +17,16 @@ public class Wave {
     public int x;
     public int y;
     public int num = 0;
+    public int point;
     public String vord, path;
     Timer timeMove;
 
-    public Wave(int x, int y, int speed,String vord, JPanel page) {
+    public Wave(int x, int y, int speed,String vord, int point ,JPanel page) {
         this.x = x;
         this.y = y;
         this.speed = speed;
         this.vord = vord; 
+        this.point = point;
         path = "img\\zom0.png";
         this.move(page);
     }
@@ -32,14 +34,14 @@ public class Wave {
     public void move(JPanel page) {
         this.timeMove = new Timer(speed, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                x -= 5;
+                x -= 10;
                 page.repaint();
                 path = svapImage();
-                
+
             }
         });
         this.timeMove.start();
-               
+
     }
 
    public BufferedImage getImage() {
@@ -59,7 +61,7 @@ public class Wave {
         int pic = num%7;
         path = "img\\zom"+pic+".png";
         num += 1;
-        System.out.println(num);
+
         return path;
     }
 }

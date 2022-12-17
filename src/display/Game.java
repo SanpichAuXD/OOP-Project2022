@@ -1,6 +1,7 @@
 package display;
 
 import java.awt.*;
+//import java.io.*;
 import java.io.File;
 import java.io.IOException;
 
@@ -23,7 +24,7 @@ public class Game extends JPanel implements  DocumentListener {
 
     private static final long serialVersionUID = 1L;
 
-    private static int speed = 10, dogSize =60, waveHeight = 50;
+    private static int speed = 50, dogSize =60, waveHeight = 50;
     private static int base = 400, xStart = 1000;
     private long point = 0;
     private boolean correct1, correct2, correct3;
@@ -107,9 +108,9 @@ public class Game extends JPanel implements  DocumentListener {
          ArrayList<String>  bank2 = createBank(2);
          ArrayList<String>  bank3 = createBank(3);
          switch (set) {
-            case 1 -> waveSet1.add(new Wave(xStart + fars  ,base, speed, bank1.get(n1), this));
-            case 2 -> waveSet2.add(new Wave(xStart + fars ,  base - 150, speed, bank2.get(n1), this));
-            case 3 -> waveSet3.add(new Wave(xStart + fars , base - 300, speed, bank3.get(n1), this));
+            case 1 -> waveSet1.add(new Wave(xStart + fars  ,base, speed, bank1.get(n1), bank1.get(n1).length(), this));
+            case 2 -> waveSet2.add(new Wave(xStart + fars ,  base - 150, speed, bank2.get(n1),bank2.get(n1).length(), this));
+            case 3 -> waveSet3.add(new Wave(xStart + fars , base - 300, speed, bank3.get(n1),bank3.get(n1).length(), this));
           }
     }
 
@@ -119,7 +120,7 @@ public class Game extends JPanel implements  DocumentListener {
         int far = 100;
         for (int i = 0; i < size; i++) {
             int n1 = rand.nextInt(1, 29);
-            waveSet.add(new Wave(xStart + far , base, speed, bank.get(n1), this));
+            waveSet.add(new Wave(xStart + far , base, speed, bank.get(n1), bank.get(n1).length(),this));
             far = far + rand.nextInt(200,300);
         }
         return waveSet;
@@ -131,7 +132,7 @@ public class Game extends JPanel implements  DocumentListener {
         int far = 0;
         for (int i = 0; i < size; i++) {
             int n1 = rand.nextInt(1, 29);
-            waveSet.add(new Wave(xStart + far, base - 150, speed, bank.get(n1), this));
+            waveSet.add(new Wave(xStart + far, base - 150, speed, bank.get(n1), bank.get(n1).length(),this));
             far = far + rand.nextInt(200,300);
         }
         return waveSet;
@@ -143,7 +144,7 @@ public class Game extends JPanel implements  DocumentListener {
         int far = 200;
         for (int i = 0; i < size; i++) {
             int n1 = rand.nextInt(1, 29);
-            waveSet.add(new Wave(xStart + far, base - 300, speed, bank.get(n1), this));
+            waveSet.add(new Wave(xStart + far, base - 300, speed, bank.get(n1), bank.get(n1).length(),this));
             far = far + rand.nextInt(200,300);
         }
         return waveSet;
@@ -181,8 +182,7 @@ public class Game extends JPanel implements  DocumentListener {
             dog.health -= 60;
             wave.x += 1500;
             if (dog.health <= 0) {
-//                display.endGame(this.point);
-                display.highScore(this.point);
+                display.endGame(this.point);
                 dog.health = new Dog().health;
                 this.point = 0;
             }
@@ -194,7 +194,7 @@ public class Game extends JPanel implements  DocumentListener {
             Wave current = it.next();
             if(current.vord.equals(display.tf.getText()) && current.x < 950) {
                             it.remove();
-                            System.out.println("Correct"+current.vord.length());
+                            point += current.point*10;
                            correct1 = true;
             }
         }
@@ -206,7 +206,7 @@ public class Game extends JPanel implements  DocumentListener {
             Wave current = it.next();
             if(current.vord.equals(display.tf.getText()) && current.x < 950) {
                             it.remove();
-                            System.out.println("Correct"+current.vord.length());
+                            point += current.point*10;
                             correct2 = true;
             }
         }
@@ -218,8 +218,9 @@ public class Game extends JPanel implements  DocumentListener {
             Wave current = it.next();
             if(current.vord.equals(display.tf.getText()) && current.x < 950) {
                             it.remove();
+                            point += current.point*10;
                            correct3 = true;
-                            System.out.println("Correct"+current.vord.length());
+                          
             }
             
         }
@@ -230,13 +231,13 @@ public class Game extends JPanel implements  DocumentListener {
         }
         public void removeUpdate(DocumentEvent e) {
             if(display.tf.getText().equals("") && correct1 == true){
-                this.point += 10;
+               
                 createWave(1);
             }else if(display.tf.getText().equals("") && correct2 == true){
-                this.point += 10;
+               
                 createWave(2);
             }else if(display.tf.getText().equals("") && correct3 == true){
-                this.point += 10;
+               
                 createWave(3);
             }
         }
