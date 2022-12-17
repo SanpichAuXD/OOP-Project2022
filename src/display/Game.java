@@ -115,7 +115,7 @@ public class Game extends JPanel implements  DocumentListener {
 
     private ArrayList makeWave1(int size) {
         bank = createBank(1);
-        ArrayList<Wave> waveSet = new ArrayList<Wave>();
+        ArrayList<Wave> waveSet = new ArrayList<>();
         int far = 100;
         for (int i = 0; i < size; i++) {
             int n1 = rand.nextInt(1, 29);
@@ -127,7 +127,7 @@ public class Game extends JPanel implements  DocumentListener {
 
     private ArrayList makeWave2(int size) {
         bank = createBank(2);
-        ArrayList<Wave> waveSet = new ArrayList<Wave>();
+        ArrayList<Wave> waveSet = new ArrayList<>();
         int far = 0;
         for (int i = 0; i < size; i++) {
             int n1 = rand.nextInt(1, 29);
@@ -138,7 +138,7 @@ public class Game extends JPanel implements  DocumentListener {
     }
     
     private ArrayList makeWave3(int size) {
-        ArrayList<Wave> waveSet = new ArrayList<Wave>();
+        ArrayList<Wave> waveSet = new ArrayList<>();
         bank = createBank(3);
         int far = 200;
         for (int i = 0; i < size; i++) {
@@ -181,7 +181,8 @@ public class Game extends JPanel implements  DocumentListener {
             dog.health -= 60;
             wave.x += 1500;
             if (dog.health <= 0) {
-                display.endGame(this.point);
+//                display.endGame(this.point);
+                display.highScore(this.point);
                 dog.health = new Dog().health;
                 this.point = 0;
             }

@@ -60,9 +60,9 @@ public class Wave {
 
     public String svapImage() {
 
-        String path = "img\\heart.png";
+        String path = "img\\dog.png";
 //        if (num%2 == 0){
-//            path = "img\\zom1.png";
+//            path = "img\\tree.png";
 //        }
 //        num += 1;
 //        System.out.println(num);

@@ -23,10 +23,7 @@ public class Display extends JFrame implements ActionListener {
 
     public Display() {
         this.setting();
-
-        start = new FrStart(this);
-
-//                                    
+        start = new FrStart(this);                   
         this.getContentPane().add(start, BorderLayout.CENTER);
         this.revalidate();
         this.repaint();
@@ -36,10 +33,8 @@ public class Display extends JFrame implements ActionListener {
         this.setTitle("Dog ninja");
         this.setSize(size);
         this.setLayout(new BorderLayout());
-
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocation(280, 100);
-
         this.setVisible(true);
     }
 
@@ -63,26 +58,17 @@ public class Display extends JFrame implements ActionListener {
         this.revalidate();
         this.repaint();
     }
+    public void highScore(long point1){
+        removeContent();
+        this.getContentPane().add(new HighScore(point1, this));
+        this.revalidate();
+        this.repaint();
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println(e.getSource());
-        if (e.getActionCommand().equals("restart")) {
-            removeContent();
-            setting();
-            Createpandtf();
-            this.getContentPane().add(p, BorderLayout.SOUTH);
-            this.revalidate();
-            this.repaint();
-            Game game = new Game();
-            tf.getDocument().addDocumentListener(game);
-            this.getContentPane().add(game, BorderLayout.CENTER);
-            this.revalidate();
-            this.repaint();
-            game.requestFocus();
-        }
-
-        if (e.getActionCommand().equals("Start")) {
+        if (e.getActionCommand().equals("Start") || e.getActionCommand().equals("Restart")) {
             removeContent();
             Createpandtf();
             this.add(p, BorderLayout.SOUTH);
@@ -92,11 +78,11 @@ public class Display extends JFrame implements ActionListener {
             this.revalidate();
             this.repaint();
             g.requestFocus();
+            tf.requestFocusInWindow();
         }
         if (e.getActionCommand().equals("How To Play")) {
             removeContent();
             htp = new FrH2P(this);
-
             this.getContentPane().add(htp, BorderLayout.CENTER);
             this.revalidate();
             this.repaint();
