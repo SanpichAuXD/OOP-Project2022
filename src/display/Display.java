@@ -1,12 +1,20 @@
 package display;
 
+import Element.EleLabel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import Element.Element;
 import java.awt.FlowLayout;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -16,7 +24,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-public class Display extends JFrame implements ActionListener {
+public class Display extends JFrame implements ActionListener, WindowListener {
 
     private static final long serialVersionUID = 1L;
     private Dimension size = new Dimension(1000, 600);
@@ -40,6 +48,7 @@ public class Display extends JFrame implements ActionListener {
         this.getContentPane().add(start, BorderLayout.CENTER);
         this.revalidate();
         this.repaint();
+        this.addWindowListener(this);
     }
 
     private void setting() {
@@ -112,7 +121,29 @@ public class Display extends JFrame implements ActionListener {
     public void stopSound(){
         clip.stop();
     }
+    
+    public void openFile(EleLabel showPoint){
+        try(FileInputStream fin = new FileInputStream("Score.dat");
+                        DataInputStream din = new DataInputStream(fin);) {
+                        String str = din.readUTF(din);
+                        showPoint.setText(str);
+                        System.out.println("open");
+                    } catch (IOException ex) {
+                        System.out.println(ex.toString());
+                    }
+    }
 
+    public void saveFile(String keep){
+        try(FileOutputStream fout = new FileOutputStream("Score.dat");
+                      DataOutputStream dout = new DataOutputStream(fout);) {
+                      String str = keep;
+                       dout.writeUTF(str);
+                        System.out.println("close");
+                    } catch (IOException ex) {
+                        System.out.println(ex.toString());
+                    }
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println(e.getSource());
@@ -144,6 +175,7 @@ public class Display extends JFrame implements ActionListener {
             this.getContentPane().add(start, BorderLayout.CENTER);
             this.revalidate();
             this.repaint();
+            stopSound();
             playMenuSound();
             start.requestFocus();
         }
@@ -156,5 +188,17 @@ public class Display extends JFrame implements ActionListener {
             score.requestFocus();
         }
     }
+    
+                public void windowActivated(WindowEvent arg0) {}
+                public void windowClosed(WindowEvent arg0) {}
+                public void windowClosing(WindowEvent arg0) {
+//                    saveFile();
+                } 
+                public void windowDeactivated(WindowEvent arg0) {}
+                public void windowDeiconified(WindowEvent arg0) {}
+                public void windowIconified(WindowEvent arg0) {}
+                public void windowOpened(WindowEvent arg0) {
+//                    openFile();
+                }
 
 }
