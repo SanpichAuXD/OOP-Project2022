@@ -192,7 +192,7 @@ public class Game extends JPanel implements  DocumentListener {
                 display.endGame(this.point);
                 dog1.health = new Dog().health;
                 this.point = 0;
-                display.stopSound();
+//                display.stopSound();
                 display.playGameOver();
             }
         }
@@ -240,13 +240,13 @@ public class Game extends JPanel implements  DocumentListener {
         }
         public void removeUpdate(DocumentEvent e) {
             if(display.tf.getText().equals("") && correct1 == true){
-//               display.correctSound(); 
+               display.correctSound(); 
                 createWave(1);
             }else if(display.tf.getText().equals("") && correct2 == true){
-//               display.correctSound();
+                 display.correctSound(); 
                 createWave(2);
             }else if(display.tf.getText().equals("") && correct3 == true){
-//               display.correctSound();
+                display.correctSound(); 
                 createWave(3);
             }
         }

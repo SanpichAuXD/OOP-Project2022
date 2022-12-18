@@ -49,8 +49,6 @@ public class FrHighScore extends JPanel {
                 showPoint.setForeground(Color.white);
                 this.add(showPoint);
                 keep += "\n" + showPoint.getText();
-//                                System.out.println(showPoint);
-//                                System.out.println(showPoint.getText());
                 cnt += 50;
             }
             

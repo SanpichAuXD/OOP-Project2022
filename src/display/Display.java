@@ -93,7 +93,7 @@ public class Display extends JFrame implements ActionListener, WindowListener {
         System.out.println();
         score = new Score("Test",point1);
         keepScore.add(score);
-//            stopSound();
+            stopSound();
 //            playGameOver();
 //        this.revalidate();
 //        this.repaint();
@@ -143,10 +143,10 @@ public void playGameOver() {
     
 public void correctSound() {
         try {
-            audioInput = AudioSystem.getAudioInputStream(new File("sound\\Correct.wav"));
-            clip = AudioSystem.getClip();
-            clip.open(audioInput);
-            clip.start();
+            audioInput = AudioSystem.getAudioInputStream(new File("sound\\sound_Correct.wav"));
+            clip2 = AudioSystem.getClip();
+            clip2.open(audioInput);
+            clip2.start();
         } catch (Exception e) {
             System.out.println(e);
         }
