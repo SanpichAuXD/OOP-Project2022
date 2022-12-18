@@ -40,13 +40,15 @@ public class HighScore extends JPanel {
                             for(int i=0; i<keepScore.size(); i++){
                                 showPoint = new EleLabel( "Rank " + (i+1)+" Score : " +keepScore.get(i),30,300,100+cnt,1000,100);
                                 showPoint.setForeground(Color.white);
+                                showPoint.setText(showPoint.getText()+"\n");
                                 this.add(showPoint);
                                 keep += "\n" + showPoint.getText();
 //                                System.out.println(showPoint);
 //                                System.out.println(showPoint.getText());
                                 cnt+= 50;
                             }
-                            dis.saveFile(keep);
+//                            dis.saveFile(keep);
+                            System.out.println(showPoint.getText());
                             System.out.println("555555");
                             System.out.println(keep);
                             EleButton menu = new EleButton("Home",15,380,500,200,50);

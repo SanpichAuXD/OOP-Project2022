@@ -12,8 +12,8 @@ import Element.EleButton;
 import Element.EleLabel;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
@@ -27,15 +27,15 @@ public class FrStart extends JPanel {
     private Image img =  null;
     public FrStart(ActionListener main) {
         try {
+
             this.setBackground(new Color(17, 17, 51));
             this.setBounds(0, 0, 1000, 600);
             this.setFocusable(true);
             this.setLayout(null);
            
-            EleLabel nameGame = new EleLabel("Dev VS Zombie", 40, 335, 60, 400, 200);
+            EleLabel nameGame = new EleLabel("Dev VS Zombs", 40, 350, 100, 300, 200);
             nameGame.setForeground(Color.white);
 
-            
             EleButton start = new EleButton("Start", 15, 380, 300, 200, 50);
             start.addActionListener(main);
 
@@ -54,19 +54,15 @@ public class FrStart extends JPanel {
         }
 
     }// </editor-fold>  
-    public void paintComponent(Graphics g) {
+protected void paintComponent(Graphics g) {
         try {
-            
             img = ImageIO.read(new File("img\\bgstart.png"));
         } catch (IOException ex) {
             Logger.getLogger(FrStart.class.getName()).log(Level.SEVERE, null, ex);
         }
 
           super.paintComponent(g);
-          g.drawImage(img, 0, 8, null);
-          g.setColor(new Color(17, 17, 51));
-          g.fillRoundRect(307, 127, 360, 70, 25, 25);
-        
+        g.drawImage(img, 0, 0, null);
 }
     
 

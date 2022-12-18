@@ -21,11 +21,11 @@ public class Wave {
     public String vord, path;
     Timer timeMove;
 
-    public Wave(int x, int y, int speed,String vord, int point ,JPanel page) {
+    public Wave(int x, int y, int speed,String vord, int point, JPanel page) {
         this.x = x;
         this.y = y;
         this.speed = speed;
-        this.vord = vord; 
+        this.vord = vord;
         this.point = point;
         path = "img\\zom0.png";
         this.move(page);

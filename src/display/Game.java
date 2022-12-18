@@ -24,14 +24,18 @@ public class Game extends JPanel implements  DocumentListener {
 
     private static final long serialVersionUID = 1L;
 
-    private static int speed = 50, dogSize =60, waveHeight = 50;
-    private static int base = 400, xStart = 1000;
-    private long point = 0;
+    private static int speed = 50, dogSize =150, waveHeight = 70;
+    private static int base = 520, xStart = 1000;
+    private int point = 0;
     private boolean correct1, correct2, correct3;
     private Random rand = new Random();
     public ArrayList<String> bank;
 
-    private Dog dog = new Dog(0, base - 50);
+    private Dog dog1 = new Dog(150, base - 100);
+    private Dog dog2 = new Dog(150, base - 200);
+    private Dog dog3 = new Dog(150, base - 300);
+    private Dog dog4 = new Dog(150, base - 400);
+    private Dog dog5 = new Dog(150, base - 500);
     static Display display;
     static Wave wave;
 
@@ -44,8 +48,8 @@ public class Game extends JPanel implements  DocumentListener {
     private Environment building = new Environment(xStart - 100, base - 150, this, Environment.BUILDING, 4);
 
     public Game() {
-        this.setBounds(0, 0, 1000, 500);
-//        this.setLayout(null);
+        this.setBounds(0, 0, 1000, 600);
+        this.setLayout(null);
         this.setFocusable(true);
     }
 
@@ -57,12 +61,18 @@ public class Game extends JPanel implements  DocumentListener {
             this.drawBackground(g2);
             //---POINT----
             g2.setFont(Element.getFont(20));
+			g2.setColor(new Color(17, 17, 51));
+            	g2.fillRoundRect(745, 13, 150, 40,10,10);
             g2.setColor(Color.white);
             g2.drawString("Point : " + point, 750, 40);
             //--- dog --
             g2.setColor(Color.RED);
             drawDogHealth(g2);
-            g2.drawImage(dog.getImage(), dog.x, dog.y, dogSize, dogSize, null);
+            g2.drawImage(dog1.getImage(), dog1.x, dog1.y, dogSize, dogSize, null);
+            g2.drawImage(dog2.getImage(), dog2.x, dog2.y, dogSize, dogSize, null);
+            g2.drawImage(dog3.getImage(), dog3.x, dog3.y, dogSize, dogSize, null);
+            g2.drawImage(dog4.getImage(), dog4.x, dog4.y, dogSize, dogSize, null);
+            g2.drawImage(dog5.getImage(), dog5.x, dog5.y, dogSize, dogSize, null);
             //----Wave----
             for (Wave item : waveSet1) {
                 drawWave(item, g2);
@@ -79,20 +89,17 @@ public class Game extends JPanel implements  DocumentListener {
     }
 
     private void drawBackground(Graphics2D g2) throws IOException {
-        g2.drawImage(ImageIO.read(new File("img\\sky.png")), 0, 0, 2000, 1000, null);
-        g2.drawImage(building.getImage(), building.x, building.y, 500, 200, null);
-        g2.drawImage(ImageIO.read(new File("img\\dir.png")), 0, base + 10, 2000, 220, null);
-//        for (Environment item : envSet) {
-//            g2.drawImage(item.getImage(), item.x, item.y, 250, 160, null);
-//        }
+        g2.drawImage(ImageIO.read(new File("img\\bg-game2.png")), 0, 0, 1000, 600, null);
     }
 
     private void drawDogHealth(Graphics2D g2) {
         try {
+			g2.setColor(new Color(17, 17, 51));
+             	g2.fillRoundRect(5, 10, 255, 40,10,10);
             g2.drawImage(ImageIO.read(new File("img\\heart.png")), 10, 20, 20, 20, null);
             g2.setStroke(new BasicStroke(18.0f));
             g2.setColor(new Color(241, 98, 69));
-            g2.drawLine(60, 30, 60 + dog.health, 30);
+            g2.drawLine(60, 30, 60 + dog1.health, 30);
             g2.setColor(Color.white);
             g2.setStroke(new BasicStroke(6.0f));
             g2.drawRect(50, 20, 200, 20);
@@ -172,19 +179,21 @@ public class Game extends JPanel implements  DocumentListener {
 
     private void drawWave(Wave wave, Graphics2D g2) {
         FontMetrics fm = g2.getFontMetrics(g2.getFont());
-        g2.drawString(wave.vord, wave.x + 25 - fm.stringWidth(wave.vord) /2, (wave.y - waveHeight));
-        g2.drawImage(wave.getImage(), wave.x, (wave.y - waveHeight), 50, waveHeight + 10, null);
-        if (Event.checkHit(dog, wave)) {
+        	g2.drawString(wave.vord, (wave.x + waveHeight/2) - fm.stringWidth(wave.vord) /2, (wave.y - waveHeight));
+            g2.drawImage(wave.getImage(), wave.x, (wave.y - waveHeight), waveHeight, waveHeight + 10, null);
+        if (Event.checkHit(dog1, wave)) {
             g2.setColor(new Color(240, 98, 69));
-//            System.out.println("hit");
-            g2.setStroke(new BasicStroke(10.0f));
-            g2.draw(new RoundRectangle2D.Double(5, 5, 977, 555, 0, 10));
-            dog.health -= 60;
+			g2.setStroke(new BasicStroke(15.0f));
+            	g2.draw(new RoundRectangle2D.Double(5, 5, 975, 542, 0, 15));
+            	dog1.health -= 60;
+           		 display.playSoundEffect();
             wave.x += 1500;
-            if (dog.health <= 0) {
+            if (dog1.health <= 0) {
                 display.endGame(this.point);
-                dog.health = new Dog().health;
+                dog1.health = new Dog().health;
                 this.point = 0;
+                display.stopSound();
+                display.playGameOver();
             }
         }
     }
@@ -231,13 +240,13 @@ public class Game extends JPanel implements  DocumentListener {
         }
         public void removeUpdate(DocumentEvent e) {
             if(display.tf.getText().equals("") && correct1 == true){
-               
+//               display.correctSound(); 
                 createWave(1);
             }else if(display.tf.getText().equals("") && correct2 == true){
-               
+//               display.correctSound();
                 createWave(2);
             }else if(display.tf.getText().equals("") && correct3 == true){
-               
+//               display.correctSound();
                 createWave(3);
             }
         }
