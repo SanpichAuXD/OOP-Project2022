@@ -22,7 +22,7 @@ public class FrHighScore extends JPanel {
 
     private static final long serialVersionUID = 1L;
     public long point;
-    public Display dis;
+
     private int cnt;
     private String keep;
     EleLabel showPoint;
@@ -31,16 +31,16 @@ public class FrHighScore extends JPanel {
         //----
     }
 
-    public FrHighScore(ActionListener main, ArrayList<Score> keepScore,Display dis) {
+    public FrHighScore(ActionListener main, ArrayList<Score> keepScore) {
         try {
             this.setBackground(new Color(241, 98, 69));
             this.setBounds(0, 0, 1000, 600);
             this.setFocusable(true);
             this.setLayout(null);
-            this.dis = dis;
+          
             Collections.sort(keepScore);
-            System.out.println("Have"+keepScore.size());
-            
+            System.out.println("Have" + keepScore.size());
+
             EleLabel title = new EleLabel("Hall of Frame", 30, 380, 0, 1000, 100);
             title.setForeground(Color.white);
             this.add(title);
@@ -56,18 +56,17 @@ public class FrHighScore extends JPanel {
             EleLabel headerScore = new EleLabel("Score", 22, 670, 50, 1000, 100);
             headerScore.setForeground(Color.white);
             this.add(headerScore);
-            
+
             for (int i = 0; i < keepScore.size(); i++) {
                 System.out.println("create");
-                showPoint = new EleLabel("Rank " + (i + 1) + " Score : " + keepScore.get(i).getPoint(), 30, 300, 100 + cnt, 1000, 100);
-                
+                showPoint = new EleLabel("Rank " + (i + 1) + keepScore.get(i).getName() + " Score : " + keepScore.get(i).getPoint(), 30, 300, 100 + cnt, 1000, 100);
+
                 showPoint.setForeground(Color.white);
                 this.add(showPoint);
                 keep += "\n" + showPoint.getText();
                 cnt += 50;
             }
-            
-            
+
             EleButton menu = new EleButton("Home", 15, 380, 500, 200, 50);
             menu.addActionListener(main);
             this.add(menu);
@@ -76,8 +75,8 @@ public class FrHighScore extends JPanel {
         }
 
     }
-    
-    public String getKeep(){
+
+    public String getKeep() {
         return keep;
     }
 

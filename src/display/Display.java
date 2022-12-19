@@ -33,17 +33,17 @@ import javax.swing.border.EmptyBorder;
 public class Display extends JFrame implements ActionListener, WindowListener {
 
     private static final long serialVersionUID = 1L;
-       private Dimension size = new Dimension(1000, 650);//1
+    private Dimension size = new Dimension(1000, 650);//1
     private JPanel p;
     public JTextField tf;
     private Game g;
+    private String name  ="";
     private FrStart start;
     private FrH2P htp;
     private FrHighScore frscore;
-    private int point1;
-    private FrHighScore HS;
     private Score score;
-    private ArrayList<Score> keepScore = new ArrayList<>();;
+    private ArrayList<Score> keepScore = new ArrayList<>();
+    ;
     private Clip clip;
     private Clip clip2;
     private AudioInputStream audioInput;
@@ -51,18 +51,18 @@ public class Display extends JFrame implements ActionListener, WindowListener {
 
     public Display() {
         this.setting();
-        start = new FrStart(this);             
+        start = new FrStart(this);
         this.getContentPane().add(start, BorderLayout.CENTER);
         this.revalidate();
         this.repaint();
-        
+
         System.out.println("Cons");
     }
 
     private void setting() {
         this.setTitle("Dog ninja");
         this.setSize(size);
-		this.setResizable(false);
+        this.setResizable(false);
         this.setLayout(new BorderLayout());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.addWindowListener(this);
@@ -75,9 +75,9 @@ public class Display extends JFrame implements ActionListener, WindowListener {
         tf = new JTextField(20);
         tf.setBorder(new EmptyBorder(5, 0, 5, 0));
         tf.setFont(Element.getFont(30));
-		tf.setForeground(new Color(17, 17, 51));
+        tf.setForeground(new Color(17, 17, 51));
         p = new JPanel();
-		p.setBackground(new Color(17, 17, 51));
+        p.setBackground(new Color(17, 17, 51));
         p.setLayout(new FlowLayout());
         p.add(tf);
     }
@@ -91,83 +91,88 @@ public class Display extends JFrame implements ActionListener, WindowListener {
         removeContent();
         this.getContentPane().add(new Menu(point1, this));
         System.out.println();
-        score = new Score("Test",point1);
+        score = new Score(name, point1);
         keepScore.add(score);
-            stopSound();
-//            playGameOver();
-//        this.revalidate();
-//        this.repaint();
+        stopSound();
     }
-    
+
     public void playInGameSound() {
         try {
             audioInput = AudioSystem.getAudioInputStream(new File("sound\\InGameSound.wav"));
             clip = AudioSystem.getClip();
             clip.open(audioInput);
             playSound();
-        } catch (Exception e) {
+        } 
+        catch (Exception e) {
             System.out.println(e);
         }
     }
+
     public void playMenuSound() {
         try {
             audioInput = AudioSystem.getAudioInputStream(new File("sound\\MenuSound.wav"));
             clip = AudioSystem.getClip();
             clip.open(audioInput);
             playSound();
-        } catch (Exception e) {
+        } 
+        catch (Exception e) {
             System.out.println(e);
         }
     }
-    public void playSoundEffect(){
+
+    public void playSoundEffect() {
         try {
             audioInput2 = AudioSystem.getAudioInputStream(new File("sound\\Ugh.wav"));
             clip2 = AudioSystem.getClip();
             clip2.open(audioInput2);
             clip2.start();
-        } catch (Exception e) {
+        } 
+        catch (Exception e) {
             System.out.println(e);
         }
     }
 
-public void playGameOver() {
+    public void playGameOver() {
         try {
             audioInput = AudioSystem.getAudioInputStream(new File("sound\\GameOver.wav"));
             clip = AudioSystem.getClip();
             clip.open(audioInput);
             clip.start();
-        } catch (Exception e) {
+        } 
+        catch (Exception e) {
             System.out.println(e);
         }
     }
-    
-public void correctSound() {
+
+    public void correctSound() {
         try {
             audioInput = AudioSystem.getAudioInputStream(new File("sound\\sound_Correct.wav"));
             clip2 = AudioSystem.getClip();
             clip2.open(audioInput);
             clip2.start();
-        } catch (Exception e) {
+        } 
+        catch (Exception e) {
             System.out.println(e);
         }
     }
-    
-    public void playSound(){
+
+    public void playSound() {
         clip.start();
         clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
-    public void stopSound(){
+
+    public void stopSound() {
         clip.stop();
     }
-    
 
-    
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println(e.getSource());
         if (e.getActionCommand().equals("Start") || e.getActionCommand().equals("Restart")) {
             removeContent();
             Createpandtf();
+            name = start.tf_n.getText();
+            System.out.println("Hi"+name);
             this.add(p, BorderLayout.SOUTH);
             g = new Game();
             tf.getDocument().addDocumentListener(g);
@@ -188,8 +193,9 @@ public void correctSound() {
             htp.requestFocus();
         }
         if (e.getActionCommand().equals("Home")) {
+           
             removeContent();
-            start = new FrStart(this);              
+            start = new FrStart(this);
             this.getContentPane().add(start, BorderLayout.CENTER);
             this.revalidate();
             this.repaint();
@@ -198,57 +204,62 @@ public void correctSound() {
             start.requestFocus();
         }
         if (e.getActionCommand().equals("High Score")) {
-            removeContent();
-            frscore = new FrHighScore(this,keepScore,this);
             
-            if (frscore.showPoint == null){
-                
+            removeContent();
+            frscore = new FrHighScore(this, keepScore);
+            if (frscore.showPoint == null) {
                 System.out.println("null");
             }
-            
             this.getContentPane().add(frscore, BorderLayout.CENTER);
             this.revalidate();
             this.repaint();
-//            openFile();
             frscore.requestFocus();
         }
     }
-    
-                public void windowActivated(WindowEvent arg0) {}
-                public void windowClosed(WindowEvent arg0) {}
-                public void windowClosing(WindowEvent arg0) {
-                     System.out.println("Close");
-                    saveFile();
-                } 
-                public void windowDeactivated(WindowEvent arg0) {}
-                public void windowDeiconified(WindowEvent arg0) {}
-                public void windowIconified(WindowEvent arg0) {}
-                public void windowOpened(WindowEvent arg0) {
-                     System.out.println("Open");
-                    openFile();
-                   
-                }
-                public void openFile(){
-        try(FileInputStream fin = new FileInputStream("Score.dat");
-                        ObjectInputStream oin = new ObjectInputStream(fin);) {
-                        ArrayList arr = (ArrayList) oin.readObject();
-                        System.out.println(arr.size());
-                        this.keepScore = arr;
-                        System.out.println("open");
-                    } catch (IOException ex) {
-                        System.out.println(ex.toString());
-                    } catch (ClassNotFoundException ex) {
+
+    public void windowActivated(WindowEvent arg0) {
+    }
+
+    public void windowClosed(WindowEvent arg0) {
+    }
+
+    public void windowClosing(WindowEvent arg0) {
+        saveFile();
+    }
+
+    public void windowDeactivated(WindowEvent arg0) {
+    }
+
+    public void windowDeiconified(WindowEvent arg0) {
+    }
+
+    public void windowIconified(WindowEvent arg0) {
+    }
+
+    public void windowOpened(WindowEvent arg0) {
+        openFile();
+
+    }
+
+    public void openFile() {
+        try ( FileInputStream fin = new FileInputStream("Score.dat");  ObjectInputStream oin = new ObjectInputStream(fin);) {
+            ArrayList arr = (ArrayList) oin.readObject();
+            System.out.println(arr.size());
+            this.keepScore = arr;
+            System.out.println("open");
+        } catch (IOException ex) {
+            System.out.println(ex.toString());
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(Display.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public void saveFile(){
-        try(FileOutputStream fout = new FileOutputStream("Score.dat");
-                     ObjectOutputStream oout = new ObjectOutputStream(fout);) {
-                     ArrayList <Score> arr = keepScore;
-                     oout.writeObject(arr);
-                    } catch (IOException ex) {
-                        System.out.println(ex.toString());
-                    }
+    public void saveFile() {
+        try ( FileOutputStream fout = new FileOutputStream("Score.dat");  ObjectOutputStream oout = new ObjectOutputStream(fout);) {
+            ArrayList<Score> arr = keepScore;
+            oout.writeObject(arr);
+        } catch (IOException ex) {
+            System.out.println(ex.toString());
+        }
     }
 }

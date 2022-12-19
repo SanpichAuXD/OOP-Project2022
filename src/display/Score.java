@@ -38,9 +38,10 @@ public class Score implements Serializable, Comparable<Score> {
         compareP = ((Score) o).getPoint();
         System.out.println(compareP);
         // For Ascending order
-        return   compareP - this.point;
+        return compareP - this.point;
     }
-    public String toString(){
-        return this.point +this.name + "";
+
+    public String toString() {
+        return this.point + this.name + "";
     }
 }

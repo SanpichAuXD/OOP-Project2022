@@ -9,16 +9,16 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class Dog{
+public class Dev{
 	public int x;
 	public int y;
-	public int health=1800000;
+	public int health=180;
 	
-	public Dog() {
+	public Dev() {
 		
 	}
 	
-	public Dog(int x,int y) {
+	public Dev(int x,int y) {
 		this.x=x;
 		this.y=y;
 	}
