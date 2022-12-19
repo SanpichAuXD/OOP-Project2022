@@ -73,6 +73,7 @@ public class Display extends JFrame implements ActionListener, WindowListener {
 
     public void Createpandtf() {
         tf = new JTextField(20);
+        tf.setHorizontalAlignment(JTextField.CENTER);
         tf.setBorder(new EmptyBorder(5, 0, 5, 0));
         tf.setFont(Element.getFont(30));
         tf.setForeground(new Color(17, 17, 51));
@@ -207,9 +208,6 @@ public class Display extends JFrame implements ActionListener, WindowListener {
             
             removeContent();
             frscore = new FrHighScore(this, keepScore);
-            if (frscore.showPoint == null) {
-                System.out.println("null");
-            }
             this.getContentPane().add(frscore, BorderLayout.CENTER);
             this.revalidate();
             this.repaint();

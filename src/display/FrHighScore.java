@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 
 import Element.EleButton;
 import Element.EleLabel;
+import java.awt.Graphics;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.DataInputStream;
@@ -22,10 +23,12 @@ public class FrHighScore extends JPanel {
 
     private static final long serialVersionUID = 1L;
     public long point;
-
     private int cnt;
     private String keep;
-    EleLabel showPoint;
+//    EleLabel showPoint;
+    EleLabel showPoint_r;
+    EleLabel showPoint_n;
+    EleLabel showPoint_s;
 
     public FrHighScore() {
         //----
@@ -33,50 +36,74 @@ public class FrHighScore extends JPanel {
 
     public FrHighScore(ActionListener main, ArrayList<Score> keepScore) {
         try {
-            this.setBackground(new Color(241, 98, 69));
+            this.setBackground(new Color(17, 17, 51));    
             this.setBounds(0, 0, 1000, 600);
             this.setFocusable(true);
             this.setLayout(null);
-          
             Collections.sort(keepScore);
-            System.out.println("Have" + keepScore.size());
-
+            System.out.println("Have"+keepScore.size());
+            
             EleLabel title = new EleLabel("Hall of Frame", 30, 380, 0, 1000, 100);
             title.setForeground(Color.white);
             this.add(title);
 
-            EleLabel headerRank = new EleLabel("Ranking", 22, 230, 50, 1000, 100);
+            EleLabel headerRank = new EleLabel("Ranking", 20, 200, 70, 200, 100);
+            headerRank.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             headerRank.setForeground(Color.white);
             this.add(headerRank);
 
-            EleLabel headerName = new EleLabel("Name", 22, 450, 50, 1000, 100);
+            EleLabel headerName = new EleLabel("Name", 20, 400, 70, 200, 100);
+            headerName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             headerName.setForeground(Color.white);
             this.add(headerName);
 
-            EleLabel headerScore = new EleLabel("Score", 22, 670, 50, 1000, 100);
+            EleLabel headerScore = new EleLabel("Score", 20, 600, 70, 200, 100);
+            headerScore.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             headerScore.setForeground(Color.white);
             this.add(headerScore);
-
-            for (int i = 0; i < keepScore.size(); i++) {
-                System.out.println("create");
-                showPoint = new EleLabel("Rank " + (i + 1) + keepScore.get(i).getName() + " Score : " + keepScore.get(i).getPoint(), 30, 300, 100 + cnt, 1000, 100);
-
-                showPoint.setForeground(Color.white);
-                this.add(showPoint);
-                keep += "\n" + showPoint.getText();
+            
+            EleButton home = new EleButton("Home",15, 425,525,150,30);
+            home.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            home.addActionListener(main);
+            this.add(home);
+            
+            for (int i = 0; i < 7; i++) {
+                if(!keepScore.isEmpty() && keepScore.size()>i){
+                    showPoint_r = new EleLabel(""+(i + 1) , 20, 200, 125 + cnt, 200, 100);
+                    showPoint_r.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                    showPoint_r.setForeground(Color.white);
+                    this.add(showPoint_r);
+                }
+                
+                
+                showPoint_n = new EleLabel(keepScore.get(i).getName() , 20, 400, 125 + cnt, 200, 100);
+                showPoint_n.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                showPoint_n.setForeground(Color.white);
+                this.add(showPoint_n);
+                
+                showPoint_s = new EleLabel(keepScore.get(i).getPoint()+"" , 20, 600, 125 + cnt, 200, 100);
+                showPoint_s.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                showPoint_s.setForeground(Color.white);
+                this.add(showPoint_s);
+                
+                keep += "\n" + showPoint_r.getText() + showPoint_n.getText() + showPoint_s.getText();
                 cnt += 50;
             }
-
-            EleButton menu = new EleButton("Home", 15, 380, 500, 200, 50);
-            menu.addActionListener(main);
-            this.add(menu);
+            
+            
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.toString());
         }
 
     }
-
-    public String getKeep() {
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.setColor(Color.white);
+        g.drawLine(200, 150, 800,150);
+        g.drawRoundRect(200, 90, 600, 400, 0, 0);
+    }
+    
+    public String getKeep(){
         return keep;
     }
 

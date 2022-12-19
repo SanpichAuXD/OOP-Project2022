@@ -36,7 +36,7 @@ public class FrStart extends JPanel {
             nameGame.setForeground(Color.white);
 
             
-            EleButton start = new EleButton("Start", 15, 380, 300, 200, 50);
+            EleButton start = new EleButton("Start", 15, 380, 330, 200, 50);
             start.addActionListener(main);
 
             EleButton howtoplay = new EleButton("How To Play", 15, 380, 400, 200, 50);
@@ -45,10 +45,12 @@ public class FrStart extends JPanel {
             EleButton highScore = new EleButton("High Score", 15, 380, 470, 200, 50);
             highScore.addActionListener(main);
 
-            tf_n = new JTextField();
+            tf_n = new JTextField("User");
+            tf_n.setHorizontalAlignment(JTextField.CENTER);
+            tf_n.setForeground(new Color(17, 17, 51));
             tf_n.setBorder(new EmptyBorder(5, 0, 5, 0));
             tf_n.setFont(Element.getFont(25));
-            tf_n.setBounds(325, 225, 300, 30);
+            tf_n.setBounds(325, 225, 300, 40);
             
             
             this.add(nameGame);
