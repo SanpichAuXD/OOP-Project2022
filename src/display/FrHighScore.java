@@ -2,22 +2,12 @@ package display;
 
 import java.awt.Color;
 import java.awt.event.ActionListener;
-
 import javax.swing.JPanel;
-
 import Element.EleButton;
 import Element.EleLabel;
 import java.awt.Graphics;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import javax.swing.JTextArea;
 
 public class FrHighScore extends JPanel {
 
@@ -36,13 +26,12 @@ public class FrHighScore extends JPanel {
 
     public FrHighScore(ActionListener main, ArrayList<Score> keepScore) {
         try {
-            this.setBackground(new Color(17, 17, 51));    
+            this.setBackground(new Color(17, 17, 51));
             this.setBounds(0, 0, 1000, 600);
             this.setFocusable(true);
             this.setLayout(null);
             Collections.sort(keepScore);
-            System.out.println("Have"+keepScore.size());
-            
+
             EleLabel title = new EleLabel("Hall of Frame", 30, 380, 0, 1000, 100);
             title.setForeground(Color.white);
             this.add(title);
@@ -61,49 +50,48 @@ public class FrHighScore extends JPanel {
             headerScore.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             headerScore.setForeground(Color.white);
             this.add(headerScore);
-            
-            EleButton home = new EleButton("Home",15, 425,525,150,30);
+
+            EleButton home = new EleButton("Home", 15, 425, 525, 150, 30);
             home.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             home.addActionListener(main);
             this.add(home);
-            
+
             for (int i = 0; i < 7; i++) {
-                if(!keepScore.isEmpty() && keepScore.size()>i){
-                    showPoint_r = new EleLabel(""+(i + 1) , 20, 200, 125 + cnt, 200, 100);
+                if (!keepScore.isEmpty() && keepScore.size() > i) {
+                    showPoint_r = new EleLabel("" + (i + 1), 20, 200, 125 + cnt, 200, 100);
                     showPoint_r.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
                     showPoint_r.setForeground(Color.white);
                     this.add(showPoint_r);
                 }
-                
-                
-                showPoint_n = new EleLabel(keepScore.get(i).getName() , 20, 400, 125 + cnt, 200, 100);
+
+                showPoint_n = new EleLabel(keepScore.get(i).getName(), 20, 400, 125 + cnt, 200, 100);
                 showPoint_n.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
                 showPoint_n.setForeground(Color.white);
                 this.add(showPoint_n);
-                
-                showPoint_s = new EleLabel(keepScore.get(i).getPoint()+"" , 20, 600, 125 + cnt, 200, 100);
+
+                showPoint_s = new EleLabel(keepScore.get(i).getPoint() + "", 20, 600, 125 + cnt, 200, 100);
                 showPoint_s.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
                 showPoint_s.setForeground(Color.white);
                 this.add(showPoint_s);
-                
+
                 keep += "\n" + showPoint_r.getText() + showPoint_n.getText() + showPoint_s.getText();
                 cnt += 50;
             }
-            
-            
+
         } catch (Exception e) {
             System.out.println(e.toString());
         }
 
     }
+
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.setColor(Color.white);
-        g.drawLine(200, 150, 800,150);
+        g.drawLine(200, 150, 800, 150);
         g.drawRoundRect(200, 90, 600, 400, 0, 0);
     }
-    
-    public String getKeep(){
+
+    public String getKeep() {
         return keep;
     }
 

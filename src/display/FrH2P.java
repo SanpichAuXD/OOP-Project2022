@@ -4,7 +4,6 @@ import Element.EleButton;
 import Element.EleLabel;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 

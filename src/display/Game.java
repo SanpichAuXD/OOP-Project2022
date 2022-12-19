@@ -28,6 +28,8 @@ public class Game extends JPanel implements DocumentListener {
     private static int base = 520, xStart = 1000;
     private int point = 0;
     private boolean correct1, correct2, correct3;
+    private double cnt = 0;
+    public Image img1, img2, img3,img4,img5,img6,img7,img8 = null;
     private Random rand = new Random();
     public ArrayList<String> bank;
 
@@ -47,6 +49,18 @@ public class Game extends JPanel implements DocumentListener {
         this.setBounds(0, 0, 1000, 600);
         this.setLayout(null);
         this.setFocusable(true);
+         try {
+             img1 =  ImageIO.read(new File("img\\zom0.png"));
+            img2 =  ImageIO.read(new File("img\\zom1.png"));
+             img3 =  ImageIO.read(new File("img\\zom2.png"));
+            img4 =  ImageIO.read(new File("img\\zom3.png"));
+             img5 =  ImageIO.read(new File("img\\zom4.png"));
+            img6 =  ImageIO.read(new File("img\\zom5.png"));
+             img7 =  ImageIO.read(new File("img\\zom6.png"));
+             img8 =  ImageIO.read(new File("img\\zom7.png"));
+        } catch (IOException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
@@ -99,8 +113,7 @@ public class Game extends JPanel implements DocumentListener {
             g2.setColor(Color.white);
             g2.setStroke(new BasicStroke(6.0f));
             g2.drawRect(50, 20, 200, 20);
-        } 
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -156,12 +169,12 @@ public class Game extends JPanel implements DocumentListener {
         }
         return waveSet;
     }
+
     public ArrayList createBank(int i) {
 
         try {
             bank = GetVo.getWords("vocab" + i + ".txt");
-        } 
-        catch (FileNotFoundException ex) {
+        } catch (FileNotFoundException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
         }
         return bank;
@@ -173,14 +186,14 @@ public class Game extends JPanel implements DocumentListener {
         g2.fillRect((wave.x - 4 + waveHeight / 2) - fm.stringWidth(wave.vord) / 2, (wave.y - waveHeight) - 20, fm.stringWidth(wave.vord) + 8, 24);
         g2.setColor(Color.white);
         g2.drawString(wave.vord, (wave.x + waveHeight / 2) - fm.stringWidth(wave.vord) / 2, (wave.y - waveHeight));
-        g2.drawImage(wave.getImage(), wave.x, (wave.y - waveHeight), waveHeight, waveHeight + 10, null);
+        g2.drawImage(svap(), wave.x, (wave.y - waveHeight), waveHeight, waveHeight + 10, null);
         if (Event.checkHit(dog1, wave)) {
             g2.setColor(new Color(240, 98, 69));
             g2.setStroke(new BasicStroke(15.0f));
             g2.draw(new RoundRectangle2D.Double(5, 5, 975, 542, 0, 15));
             dog1.health -= 60;
             display.playSoundEffect();
-            wave.x += 700;
+            wave.x += 1500;
             if (dog1.health <= 0) {
                 display.endGame(this.point);
                 dog1.health = new Dev().health;
@@ -252,7 +265,7 @@ public class Game extends JPanel implements DocumentListener {
         empty(correct1, correct2, correct3);
     }
 
-    private void  empty(boolean correct1, boolean correct2, boolean correct3) {
+    private void empty(boolean correct1, boolean correct2, boolean correct3) {
 
         Runnable doempty = new Runnable() {
             @Override
@@ -269,7 +282,7 @@ public class Game extends JPanel implements DocumentListener {
                 }
             }
         };
-        SwingUtilities.invokeLater(doempty );
+        SwingUtilities.invokeLater(doempty);
     }
 
     public void setCorrect1(boolean c) {
@@ -283,7 +296,40 @@ public class Game extends JPanel implements DocumentListener {
     public void setCorrect3(boolean c) {
         this.correct3 = c;
     }
-
+    public Image svap(){
+            Image img = null;
+           double num = cnt%7;
+            if (num <= 0){
+                img = img1;
+            }
+            else if (num <= 1){
+                img = img2;
+            }
+            else  if (num <= 2){
+                img = img3;
+            }
+            else   if (num <= 3){
+                img = img4;
+            }
+              else  if (num <= 4){
+                img = img5;
+            }
+             else    if (num <= 5){
+                img = img6;
+            }
+            else    if (num <= 6){
+                img = img7;
+            }
+            else    if (num <= 7){
+                img = img8;
+            }
+            cnt+= .05;
+            if (img == null){
+                System.out.println("null");
+                System.out.println(num);
+            }
+            return img; 
+        }
     public static void main(String[] arg) {
         display = new Display();
 

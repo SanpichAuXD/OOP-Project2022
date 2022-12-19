@@ -1,11 +1,6 @@
 package display;
 
 import java.io.Serializable;
-
-/**
- *
- * @author sanpi
- */
 public class Score implements Serializable, Comparable<Score> {
 
     private String name;
@@ -35,9 +30,7 @@ public class Score implements Serializable, Comparable<Score> {
 
     @Override
     public int compareTo(Score o) {
-        compareP = ((Score) o).getPoint();
-        System.out.println(compareP);
-        // For Ascending order
+        compareP = ((Score) o).getPoint();       
         return compareP - this.point;
     }
 

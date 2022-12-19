@@ -1,6 +1,5 @@
 package display;
 
-import Element.EleLabel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -9,8 +8,6 @@ import Element.Element;
 import java.awt.FlowLayout;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.awt.Color;
 import java.io.FileInputStream;
@@ -26,7 +23,6 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
@@ -37,7 +33,7 @@ public class Display extends JFrame implements ActionListener, WindowListener {
     private JPanel p;
     public JTextField tf;
     private Game g;
-    private String name  ="";
+    private String name = "";
     private FrStart start;
     private FrH2P htp;
     private FrHighScore frscore;
@@ -55,8 +51,6 @@ public class Display extends JFrame implements ActionListener, WindowListener {
         this.getContentPane().add(start, BorderLayout.CENTER);
         this.revalidate();
         this.repaint();
-
-        System.out.println("Cons");
     }
 
     private void setting() {
@@ -91,10 +85,11 @@ public class Display extends JFrame implements ActionListener, WindowListener {
     public void endGame(int point1) {
         removeContent();
         this.getContentPane().add(new Menu(point1, this));
-        System.out.println();
         score = new Score(name, point1);
         keepScore.add(score);
         stopSound();
+        this.revalidate();
+            this.repaint();
     }
 
     public void playInGameSound() {
@@ -103,8 +98,7 @@ public class Display extends JFrame implements ActionListener, WindowListener {
             clip = AudioSystem.getClip();
             clip.open(audioInput);
             playSound();
-        } 
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
     }
@@ -115,8 +109,7 @@ public class Display extends JFrame implements ActionListener, WindowListener {
             clip = AudioSystem.getClip();
             clip.open(audioInput);
             playSound();
-        } 
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
     }
@@ -127,8 +120,7 @@ public class Display extends JFrame implements ActionListener, WindowListener {
             clip2 = AudioSystem.getClip();
             clip2.open(audioInput2);
             clip2.start();
-        } 
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
     }
@@ -139,8 +131,7 @@ public class Display extends JFrame implements ActionListener, WindowListener {
             clip = AudioSystem.getClip();
             clip.open(audioInput);
             clip.start();
-        } 
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
     }
@@ -151,8 +142,7 @@ public class Display extends JFrame implements ActionListener, WindowListener {
             clip2 = AudioSystem.getClip();
             clip2.open(audioInput);
             clip2.start();
-        } 
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
     }
@@ -168,12 +158,12 @@ public class Display extends JFrame implements ActionListener, WindowListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println(e.getSource());
+
         if (e.getActionCommand().equals("Start") || e.getActionCommand().equals("Restart")) {
             removeContent();
             Createpandtf();
             name = start.tf_n.getText();
-            System.out.println("Hi"+name);
+
             this.add(p, BorderLayout.SOUTH);
             g = new Game();
             tf.getDocument().addDocumentListener(g);
@@ -194,18 +184,18 @@ public class Display extends JFrame implements ActionListener, WindowListener {
             htp.requestFocus();
         }
         if (e.getActionCommand().equals("Home")) {
-           
+
             removeContent();
             start = new FrStart(this);
             this.getContentPane().add(start, BorderLayout.CENTER);
-            this.revalidate();
-            this.repaint();
             stopSound();
             playMenuSound();
+            this.revalidate();
+            this.repaint();
             start.requestFocus();
         }
         if (e.getActionCommand().equals("High Score")) {
-            
+
             removeContent();
             frscore = new FrHighScore(this, keepScore);
             this.getContentPane().add(frscore, BorderLayout.CENTER);
@@ -242,9 +232,9 @@ public class Display extends JFrame implements ActionListener, WindowListener {
     public void openFile() {
         try ( FileInputStream fin = new FileInputStream("Score.dat");  ObjectInputStream oin = new ObjectInputStream(fin);) {
             ArrayList arr = (ArrayList) oin.readObject();
-            System.out.println(arr.size());
+
             this.keepScore = arr;
-            System.out.println("open");
+
         } catch (IOException ex) {
             System.out.println(ex.toString());
         } catch (ClassNotFoundException ex) {

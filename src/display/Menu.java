@@ -13,10 +13,6 @@ public class Menu extends JPanel {
     private static final long serialVersionUID = 1L;
     public long point;
 
-    public Menu() {
-        //----
-    }
-
     public Menu(long point, ActionListener main) {
         try {
             this.point = point;
