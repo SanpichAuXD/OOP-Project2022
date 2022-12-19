@@ -20,28 +20,35 @@ public class Wave {
     public int point;
     public String vord, path;
     Timer timeMove;
+    public int upSpeed = 2;
+    public int upPoint;
 
-    public Wave(int x, int y, int speed,String vord, int point, JPanel page) {
+    public Wave(int x, int y, int speed,String vord, int point,int c_point , JPanel page) {
         this.x = x;
         this.y = y;
         this.speed = speed;
         this.vord = vord;
         this.point = point;
         path = "img\\zom0.png";
-        this.move(page);
+        this.move(page,c_point);
     }
 
-    public void move(JPanel page) {
-        this.timeMove = new Timer(speed, new ActionListener() {
+    public void move(JPanel page, int c_point) {
+        this.timeMove = new Timer(0, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                x -= 10;
+                if(c_point >= 100+upPoint){
+                    upPoint += 100;
+                    upSpeed += 2;
+                    x -= (10+upSpeed);
+                }else{
+                    x -= (10+upSpeed);
+                }
                 page.repaint();
                 path = svapImage();
-
             }
         });
         this.timeMove.start();
-
+        System.out.println(c_point);
     }
 
    public BufferedImage getImage() {

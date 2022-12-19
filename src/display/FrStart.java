@@ -1,13 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package display;
 
-/**
- *
- * @author user
- */
+
 import Element.EleButton;
 import Element.EleLabel;
 import java.awt.Color;

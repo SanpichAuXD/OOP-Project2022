@@ -41,6 +41,21 @@ public class FrHighScore extends JPanel {
             Collections.sort(keepScore);
             System.out.println("Have"+keepScore.size());
             
+            EleLabel title = new EleLabel("Hall of Frame", 30, 380, 0, 1000, 100);
+            title.setForeground(Color.white);
+            this.add(title);
+
+            EleLabel headerRank = new EleLabel("Ranking", 22, 230, 50, 1000, 100);
+            headerRank.setForeground(Color.white);
+            this.add(headerRank);
+
+            EleLabel headerName = new EleLabel("Name", 22, 450, 50, 1000, 100);
+            headerName.setForeground(Color.white);
+            this.add(headerName);
+
+            EleLabel headerScore = new EleLabel("Score", 22, 670, 50, 1000, 100);
+            headerScore.setForeground(Color.white);
+            this.add(headerScore);
             
             for (int i = 0; i < keepScore.size(); i++) {
                 System.out.println("create");

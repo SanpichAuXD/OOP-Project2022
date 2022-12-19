@@ -24,7 +24,7 @@ public class Game extends JPanel implements  DocumentListener {
 
     private static final long serialVersionUID = 1L;
 
-    private static int speed = 50, dogSize =150, waveHeight = 70;
+    private static int speed = 20, dogSize =150, waveHeight = 70;
     private static int base = 520, xStart = 1000;
     private int point = 0;
     private boolean correct1, correct2, correct3;
@@ -115,9 +115,9 @@ public class Game extends JPanel implements  DocumentListener {
          ArrayList<String>  bank2 = createBank(2);
          ArrayList<String>  bank3 = createBank(3);
          switch (set) {
-            case 1 -> waveSet1.add(new Wave(xStart + fars  ,base, speed, bank1.get(n1), bank1.get(n1).length(), this));
-            case 2 -> waveSet2.add(new Wave(xStart + fars ,  base - 150, speed, bank2.get(n1),bank2.get(n1).length(), this));
-            case 3 -> waveSet3.add(new Wave(xStart + fars , base - 300, speed, bank3.get(n1),bank3.get(n1).length(), this));
+            case 1 -> waveSet1.add(new Wave(xStart + fars  ,base, 0, bank1.get(n1), bank1.get(n1).length(),point, this));
+            case 2 -> waveSet2.add(new Wave(xStart + fars ,  base - 185, 0, bank2.get(n1),bank2.get(n1).length(),point, this));
+            case 3 -> waveSet3.add(new Wave(xStart + fars , base - 375, 0, bank3.get(n1),bank3.get(n1).length(),point, this));
           }
     }
 
@@ -127,7 +127,7 @@ public class Game extends JPanel implements  DocumentListener {
         int far = 100;
         for (int i = 0; i < size; i++) {
             int n1 = rand.nextInt(1, 29);
-            waveSet.add(new Wave(xStart + far , base, speed, bank.get(n1), bank.get(n1).length(),this));
+            waveSet.add(new Wave(xStart + far , base, speed, bank.get(n1), bank.get(n1).length(),point,this));
             far = far + rand.nextInt(200,300);
         }
         return waveSet;
@@ -139,7 +139,7 @@ public class Game extends JPanel implements  DocumentListener {
         int far = 0;
         for (int i = 0; i < size; i++) {
             int n1 = rand.nextInt(1, 29);
-            waveSet.add(new Wave(xStart + far, base - 150, speed, bank.get(n1), bank.get(n1).length(),this));
+            waveSet.add(new Wave(xStart + far, base - 185, speed, bank.get(n1), bank.get(n1).length(),point,this));
             far = far + rand.nextInt(200,300);
         }
         return waveSet;
@@ -151,7 +151,7 @@ public class Game extends JPanel implements  DocumentListener {
         int far = 200;
         for (int i = 0; i < size; i++) {
             int n1 = rand.nextInt(1, 29);
-            waveSet.add(new Wave(xStart + far, base - 300, speed, bank.get(n1), bank.get(n1).length(),this));
+            waveSet.add(new Wave(xStart + far, base - 375, speed, bank.get(n1), bank.get(n1).length(),point,this));
             far = far + rand.nextInt(200,300);
         }
         return waveSet;
@@ -170,7 +170,7 @@ public class Game extends JPanel implements  DocumentListener {
     public ArrayList createBank(int i) {
 
         try {
-            bank = GetVo.getWords("cum"+ i +".txt");
+            bank = GetVo.getWords("vocab"+ i +".txt");
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -178,8 +178,11 @@ public class Game extends JPanel implements  DocumentListener {
     }
 
     private void drawWave(Wave wave, Graphics2D g2) {
-        FontMetrics fm = g2.getFontMetrics(g2.getFont());
-        	g2.drawString(wave.vord, (wave.x + waveHeight/2) - fm.stringWidth(wave.vord) /2, (wave.y - waveHeight));
+                FontMetrics fm = g2.getFontMetrics(g2.getFont());
+                g2.setColor(new Color(17, 17, 51));
+                g2.fillRect((wave.x - 4 + waveHeight/2) - fm.stringWidth(wave.vord) /2, (wave.y - waveHeight)-20,fm.stringWidth(wave.vord)+8,24);
+        	g2.setColor(Color.white);
+                g2.drawString(wave.vord, (wave.x + waveHeight/2) - fm.stringWidth(wave.vord) /2, (wave.y - waveHeight));
             g2.drawImage(wave.getImage(), wave.x, (wave.y - waveHeight), waveHeight, waveHeight + 10, null);
         if (Event.checkHit(dog1, wave)) {
             g2.setColor(new Color(240, 98, 69));
@@ -187,12 +190,11 @@ public class Game extends JPanel implements  DocumentListener {
             	g2.draw(new RoundRectangle2D.Double(5, 5, 975, 542, 0, 15));
             	dog1.health -= 60;
            		 display.playSoundEffect();
-            wave.x += 1500;
+            wave.x += 700;
             if (dog1.health <= 0) {
                 display.endGame(this.point);
                 dog1.health = new Dog().health;
                 this.point = 0;
-//                display.stopSound();
                 display.playGameOver();
             }
         }
