@@ -28,14 +28,8 @@ public class FrStart extends JPanel {
             this.setBounds(0, 0, 1000, 600);
             this.setFocusable(true);
             this.setLayout(null);
-            
-            
-            
-            
             EleLabel nameGame = new EleLabel("Dev VS Zombie", 40, 335, 60, 400, 200);
             nameGame.setForeground(Color.white);
-
-            
             EleButton start = new EleButton("Start", 15, 380, 330, 200, 50);
             start.addActionListener(main);
 
