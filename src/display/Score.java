@@ -1,12 +1,10 @@
 package display;
-
 import java.io.Serializable;
-public class Score implements Serializable, Comparable<Score> {
 
+public class Score implements Serializable, Comparable<Score> {
     private String name;
     private int point;
     private int compareP;
-
     public Score(String name, int point) {
         this.name = name;
         this.point = point;

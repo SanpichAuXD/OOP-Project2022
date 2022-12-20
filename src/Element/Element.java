@@ -2,7 +2,6 @@ package Element;
 import java.awt.Font;
 import java.io.File;
 
-
 public class Element {
 	public static Font getFont(int size){
 		Font font = null;
@@ -14,5 +13,4 @@ public class Element {
 		}
 		return font;
 	}
-
 }

@@ -27,7 +27,6 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 public class Display extends JFrame implements ActionListener, WindowListener {
-
     private static final long serialVersionUID = 1L;
     private Dimension size = new Dimension(1000, 650);//1
     private JPanel p;
@@ -39,7 +38,6 @@ public class Display extends JFrame implements ActionListener, WindowListener {
     private FrHighScore frscore;
     private Score score;
     private ArrayList<Score> keepScore = new ArrayList<>();
-    ;
     private Clip clip;
     private Clip clip2;
     private AudioInputStream audioInput;
@@ -89,7 +87,7 @@ public class Display extends JFrame implements ActionListener, WindowListener {
         keepScore.add(score);
         stopSound();
         this.revalidate();
-            this.repaint();
+        this.repaint();
     }
 
     public void playInGameSound() {
@@ -158,12 +156,10 @@ public class Display extends JFrame implements ActionListener, WindowListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
         if (e.getActionCommand().equals("Start") || e.getActionCommand().equals("Restart")) {
             removeContent();
             Createpandtf();
             name = start.tf_n.getText();
-
             this.add(p, BorderLayout.SOUTH);
             g = new Game();
             tf.getDocument().addDocumentListener(g);
@@ -184,7 +180,6 @@ public class Display extends JFrame implements ActionListener, WindowListener {
             htp.requestFocus();
         }
         if (e.getActionCommand().equals("Home")) {
-
             removeContent();
             start = new FrStart(this);
             this.getContentPane().add(start, BorderLayout.CENTER);
@@ -195,7 +190,6 @@ public class Display extends JFrame implements ActionListener, WindowListener {
             start.requestFocus();
         }
         if (e.getActionCommand().equals("High Score")) {
-
             removeContent();
             frscore = new FrHighScore(this, keepScore);
             this.getContentPane().add(frscore, BorderLayout.CENTER);
@@ -205,36 +199,22 @@ public class Display extends JFrame implements ActionListener, WindowListener {
         }
     }
 
-    public void windowActivated(WindowEvent arg0) {
-    }
-
-    public void windowClosed(WindowEvent arg0) {
-    }
-
+    public void windowActivated(WindowEvent arg0) {}
+    public void windowClosed(WindowEvent arg0) {}
     public void windowClosing(WindowEvent arg0) {
         saveFile();
     }
-
-    public void windowDeactivated(WindowEvent arg0) {
-    }
-
-    public void windowDeiconified(WindowEvent arg0) {
-    }
-
-    public void windowIconified(WindowEvent arg0) {
-    }
-
+    public void windowDeactivated(WindowEvent arg0) {}
+    public void windowDeiconified(WindowEvent arg0) {}
+    public void windowIconified(WindowEvent arg0) {}
     public void windowOpened(WindowEvent arg0) {
         openFile();
-
     }
 
     public void openFile() {
         try ( FileInputStream fin = new FileInputStream("Score.dat");  ObjectInputStream oin = new ObjectInputStream(fin);) {
             ArrayList arr = (ArrayList) oin.readObject();
-
             this.keepScore = arr;
-
         } catch (IOException ex) {
             System.out.println(ex.toString());
         } catch (ClassNotFoundException ex) {

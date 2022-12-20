@@ -3,7 +3,6 @@ package display;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import Charactor.*;
@@ -19,26 +18,21 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 public class Game extends JPanel implements DocumentListener {
-
     private static final long serialVersionUID = 1L;
-
     private static int speed = 20, dogSize = 150, waveHeight = 70;
     private static int base = 520, xStart = 1000;
     private int point = 0;
     private boolean correct1, correct2, correct3;
     private double cnt = 0;
-    public Image img1, img2, img3,img4,img5,img6,img7,img8 = null;
+    private Image img1, img2, img3,img4,img5,img6,img7,img8 = null;
     private Random rand = new Random();
-    public ArrayList<String> bank;
-
+    private ArrayList<String> bank;
     private Dev dog1 = new Dev(150, base - 100);
     private Dev dog2 = new Dev(150, base - 200);
     private Dev dog3 = new Dev(150, base - 300);
     private Dev dog4 = new Dev(150, base - 400);
     private Dev dog5 = new Dev(150, base - 500);
-    static Display display;
-
-//	------------------Wave SIze ----------------------------
+    private Display display;
     private ArrayList<Wave> waveSet1 = makeWave1(2);
     private ArrayList<Wave> waveSet2 = makeWave2(2);
     private ArrayList<Wave> waveSet3 = makeWave3(2);
@@ -328,5 +322,4 @@ public class Game extends JPanel implements DocumentListener {
             }
             return img; 
         }
-
 }

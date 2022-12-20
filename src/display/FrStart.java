@@ -1,5 +1,4 @@
 package display;
-
 import Element.EleButton;
 import Element.EleLabel;
 import Element.Element;
@@ -16,11 +15,9 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 public class FrStart extends JPanel {
-
     private static final long serialVersionUID = 1L;
     private Image img = null;
     JTextField tf_n;
-
     public FrStart(ActionListener main) {
         try {
             this.setBackground(new Color(17, 17, 51));
@@ -31,45 +28,35 @@ public class FrStart extends JPanel {
             nameGame.setForeground(Color.white);
             EleButton start = new EleButton("Start", 15, 380, 330, 200, 50);
             start.addActionListener(main);
-
             EleButton howtoplay = new EleButton("How To Play", 15, 380, 400, 200, 50);
             howtoplay.addActionListener(main);
-
             EleButton highScore = new EleButton("High Score", 15, 380, 470, 200, 50);
             highScore.addActionListener(main);
-
             tf_n = new JTextField("User");
             tf_n.setHorizontalAlignment(JTextField.CENTER);
             tf_n.setForeground(new Color(17, 17, 51));
             tf_n.setBorder(new EmptyBorder(5, 0, 5, 0));
             tf_n.setFont(Element.getFont(25));
             tf_n.setBounds(325, 225, 300, 40);
-
             this.add(nameGame);
             this.add(tf_n);
-
             this.add(start);
             this.add(howtoplay);
             this.add(highScore);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-    }// </editor-fold>  
+    } 
 
     public void paintComponent(Graphics g) {
         try {
-
             img = ImageIO.read(new File("img\\bgstart.png"));
         } catch (IOException ex) {
             Logger.getLogger(FrStart.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         super.paintComponent(g);
         g.drawImage(img, 0, 8, null);
         g.setColor(new Color(17, 17, 51));
         g.fillRoundRect(307, 127, 360, 70, 25, 25);
-
     }
-
 }

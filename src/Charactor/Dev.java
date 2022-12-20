@@ -1,6 +1,4 @@
 package Charactor;
-
-
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
@@ -9,11 +7,7 @@ public class Dev{
 	public int x;
 	public int y;
 	public int health=180;
-	
-	public Dev() {
-		
-	}
-	
+	public Dev() {}
 	public Dev(int x,int y) {
 		this.x=x;
 		this.y=y;
