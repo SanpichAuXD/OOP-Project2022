@@ -328,9 +328,5 @@ public class Game extends JPanel implements DocumentListener {
             }
             return img; 
         }
-    public static void main(String[] arg) {
-        display = new Display();
-
-    }
 
 }
