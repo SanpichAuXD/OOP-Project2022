@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class GetVo {
     public static ArrayList<String> getWords(String file) throws FileNotFoundException {
         Scanner input =  new Scanner(new File(file));
-        ArrayList<String> words = new ArrayList<String>();
+        ArrayList<String> words = new ArrayList<>();
         while(input.hasNext()) {
             words.add(input.next());
         }

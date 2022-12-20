@@ -31,7 +31,7 @@ public class Display extends JFrame implements ActionListener, WindowListener {
     private Dimension size = new Dimension(1000, 650);//1
     private JPanel p;
     public JTextField tf;
-    private Game g;
+    private FrGame g;
     private String name = "";
     private FrStart start;
     private FrH2P htp;
@@ -52,7 +52,7 @@ public class Display extends JFrame implements ActionListener, WindowListener {
     }
 
     private void setting() {
-        this.setTitle("Dog ninja");
+        this.setTitle("Dev VS Zombies");
         this.setSize(size);
         this.setResizable(false);
         this.setLayout(new BorderLayout());
@@ -82,7 +82,7 @@ public class Display extends JFrame implements ActionListener, WindowListener {
 
     public void endGame(int point1) {
         removeContent();
-        this.getContentPane().add(new Menu(point1, this));
+        this.getContentPane().add(new FrGameOver(point1, this));
         score = new Score(name, point1);
         keepScore.add(score);
         stopSound();
@@ -161,7 +161,7 @@ public class Display extends JFrame implements ActionListener, WindowListener {
             Createpandtf();
             name = start.tf_n.getText();
             this.add(p, BorderLayout.SOUTH);
-            g = new Game();
+            g = new FrGame();
             tf.getDocument().addDocumentListener(g);
             this.getContentPane().add(g, BorderLayout.CENTER);
             this.revalidate();

@@ -5,10 +5,10 @@ import javax.swing.JPanel;
 import Element.EleButton;
 import Element.EleLabel;
 
-public class Menu extends JPanel {
+public class FrGameOver extends JPanel {
     private static final long serialVersionUID = 1L;
     private long point;
-    public Menu(long point, ActionListener main) {
+    public FrGameOver(long point, ActionListener main) {
         try {
             this.point = point;
             this.setBackground(new Color(241, 98, 69));

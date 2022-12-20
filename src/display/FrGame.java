@@ -3,6 +3,7 @@ package display;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import Charactor.*;
@@ -17,27 +18,32 @@ import java.util.logging.Logger;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-public class Game extends JPanel implements DocumentListener {
+public class FrGame extends JPanel implements DocumentListener {
+
     private static final long serialVersionUID = 1L;
-    private static int speed = 20, dogSize = 150, waveHeight = 70;
+
+    private static int speed = 20, devSize = 150, waveHeight = 70;
     private static int base = 520, xStart = 1000;
     private int point = 0;
     private boolean correct1, correct2, correct3;
     private double cnt = 0;
-    private Image img1, img2, img3,img4,img5,img6,img7,img8 = null;
+    public Image img1, img2, img3,img4,img5,img6,img7,img8 = null;
     private Random rand = new Random();
-    private ArrayList<String> bank;
-    private Dev dog1 = new Dev(150, base - 100);
-    private Dev dog2 = new Dev(150, base - 200);
-    private Dev dog3 = new Dev(150, base - 300);
-    private Dev dog4 = new Dev(150, base - 400);
-    private Dev dog5 = new Dev(150, base - 500);
-    private Display display;
+    public ArrayList<String> bank;
+
+    private Dev dev1 = new Dev(150, base - 100);
+    private Dev dev2 = new Dev(150, base - 200);
+    private Dev dev3 = new Dev(150, base - 300);
+    private Dev dev4 = new Dev(150, base - 400);
+    private Dev dev5 = new Dev(150, base - 500);
+    static Display display;
+
+//	------------------Wave SIze ----------------------------
     private ArrayList<Wave> waveSet1 = makeWave1(2);
     private ArrayList<Wave> waveSet2 = makeWave2(2);
     private ArrayList<Wave> waveSet3 = makeWave3(2);
 
-    public Game() {
+    public FrGame() {
         this.setBounds(0, 0, 1000, 600);
         this.setLayout(null);
         this.setFocusable(true);
@@ -51,7 +57,7 @@ public class Game extends JPanel implements DocumentListener {
              img7 =  ImageIO.read(new File("img\\zom6.png"));
              img8 =  ImageIO.read(new File("img\\zom7.png"));
         } catch (IOException ex) {
-            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FrGame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -67,14 +73,14 @@ public class Game extends JPanel implements DocumentListener {
             g2.fillRoundRect(745, 13, 150, 40, 10, 10);
             g2.setColor(Color.white);
             g2.drawString("Point : " + point, 750, 40);
-            //--- dog --
+            //--- dev --
             g2.setColor(Color.RED);
-            drawDogHealth(g2);
-            g2.drawImage(dog1.getImage(), dog1.x, dog1.y, dogSize, dogSize, null);
-            g2.drawImage(dog2.getImage(), dog2.x, dog2.y, dogSize, dogSize, null);
-            g2.drawImage(dog3.getImage(), dog3.x, dog3.y, dogSize, dogSize, null);
-            g2.drawImage(dog4.getImage(), dog4.x, dog4.y, dogSize, dogSize, null);
-            g2.drawImage(dog5.getImage(), dog5.x, dog5.y, dogSize, dogSize, null);
+            drawdevHealth(g2);
+            g2.drawImage(dev1.getImage(), dev1.x, dev1.y, devSize, devSize, null);
+            g2.drawImage(dev2.getImage(), dev2.x, dev2.y, devSize, devSize, null);
+            g2.drawImage(dev3.getImage(), dev3.x, dev3.y, devSize, devSize, null);
+            g2.drawImage(dev4.getImage(), dev4.x, dev4.y, devSize, devSize, null);
+            g2.drawImage(dev5.getImage(), dev5.x, dev5.y, devSize, devSize, null);
             //----Wave----
             for (Wave item : waveSet1) {
                 drawWave(item, g2);
@@ -94,14 +100,14 @@ public class Game extends JPanel implements DocumentListener {
         g2.drawImage(ImageIO.read(new File("img\\bg-game2.png")), 0, 0, 1000, 600, null);
     }
 
-    private void drawDogHealth(Graphics2D g2) {
+    private void drawdevHealth(Graphics2D g2) {
         try {
             g2.setColor(new Color(17, 17, 51));
             g2.fillRoundRect(5, 10, 255, 40, 10, 10);
             g2.drawImage(ImageIO.read(new File("img\\heart.png")), 10, 20, 20, 20, null);
             g2.setStroke(new BasicStroke(18.0f));
             g2.setColor(new Color(241, 98, 69));
-            g2.drawLine(60, 30, 60 + dog1.health, 30);
+            g2.drawLine(60, 30, 60 + dev1.health, 30);
             g2.setColor(Color.white);
             g2.setStroke(new BasicStroke(6.0f));
             g2.drawRect(50, 20, 200, 20);
@@ -167,7 +173,7 @@ public class Game extends JPanel implements DocumentListener {
         try {
             bank = GetVo.getWords("vocab" + i + ".txt");
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FrGame.class.getName()).log(Level.SEVERE, null, ex);
         }
         return bank;
     }
@@ -179,16 +185,16 @@ public class Game extends JPanel implements DocumentListener {
         g2.setColor(Color.white);
         g2.drawString(wave.vord, (wave.x + waveHeight / 2) - fm.stringWidth(wave.vord) / 2, (wave.y - waveHeight));
         g2.drawImage(svap(), wave.x, (wave.y - waveHeight), waveHeight, waveHeight + 10, null);
-        if (Event.checkHit(dog1, wave)) {
+        if (Event.checkHit(dev1, wave)) {
             g2.setColor(new Color(240, 98, 69));
             g2.setStroke(new BasicStroke(15.0f));
             g2.draw(new RoundRectangle2D.Double(5, 5, 975, 542, 0, 15));
-            dog1.health -= 60;
+            dev1.health -= 60;
             display.playSoundEffect();
             wave.x += 1500;
-            if (dog1.health <= 0) {
+            if (dev1.health <= 0) {
                 display.endGame(this.point);
-                dog1.health = new Dev().health;
+                dev1.health = new Dev().health;
                 this.point = 0;
                 display.playGameOver();
             }
@@ -322,4 +328,6 @@ public class Game extends JPanel implements DocumentListener {
             }
             return img; 
         }
+    
+
 }
