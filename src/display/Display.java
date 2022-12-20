@@ -63,7 +63,7 @@ public class Display extends JFrame implements ActionListener, WindowListener {
         playMenuSound();
     }
 
-    public void Createpandtf() {
+    public void createpandtf() {
         tf = new JTextField(20);
         tf.setHorizontalAlignment(JTextField.CENTER);
         tf.setBorder(new EmptyBorder(5, 0, 5, 0));
@@ -158,7 +158,7 @@ public class Display extends JFrame implements ActionListener, WindowListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("Start") || e.getActionCommand().equals("Restart")) {
             removeContent();
-            Createpandtf();
+            createpandtf();
             name = start.tf_n.getText();
             this.add(p, BorderLayout.SOUTH);
             g = new FrGame();
