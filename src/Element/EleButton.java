@@ -1,5 +1,6 @@
 package Element;
 
+
 import java.awt.Color;
 import javax.swing.JButton;
 
@@ -14,5 +15,6 @@ public class EleButton extends JButton{
 			this.setFont(Element.getFont(size));
 			this.setBounds(x, y, width, height);
 		}
+                
 		
 }

@@ -1,13 +1,11 @@
 package display;
 
 import java.awt.*;
-//import java.io.*;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-
 import Charactor.*;
 import Element.Element;
 import event.Event;
@@ -183,7 +181,7 @@ public class Game extends JPanel implements DocumentListener {
     private void drawWave(Wave wave, Graphics2D g2) {
         FontMetrics fm = g2.getFontMetrics(g2.getFont());
         g2.setColor(new Color(17, 17, 51));
-        g2.fillRect((wave.x - 4 + waveHeight / 2) - fm.stringWidth(wave.vord) / 2, (wave.y - waveHeight) - 20, fm.stringWidth(wave.vord) + 8, 24);
+        g2.fillRoundRect((wave.x - 4 + waveHeight / 2) - fm.stringWidth(wave.vord) / 2, (wave.y - waveHeight) - 20, fm.stringWidth(wave.vord) + 8, 24,10,10);
         g2.setColor(Color.white);
         g2.drawString(wave.vord, (wave.x + waveHeight / 2) - fm.stringWidth(wave.vord) / 2, (wave.y - waveHeight));
         g2.drawImage(svap(), wave.x, (wave.y - waveHeight), waveHeight, waveHeight + 10, null);

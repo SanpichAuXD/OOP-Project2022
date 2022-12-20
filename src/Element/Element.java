@@ -1,5 +1,4 @@
 package Element;
-
 import java.awt.Font;
 import java.io.File;
 
@@ -15,4 +14,5 @@ public class Element {
 		}
 		return font;
 	}
+
 }
