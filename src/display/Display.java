@@ -8,7 +8,6 @@ import Element.Element;
 import java.awt.FlowLayout;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.io.File;
 import java.awt.Color;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -18,9 +17,6 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -38,10 +34,8 @@ public class Display extends JFrame implements ActionListener, WindowListener {
     private FrHighScore frscore;
     private Score score;
     private ArrayList<Score> keepScore = new ArrayList<>();
-    private Clip clip;
-    private Clip clip2;
-    private AudioInputStream audioInput;
-    private AudioInputStream audioInput2;
+    private Music music=  new Music();
+    
 
     public Display() {
         this.setting();
@@ -60,7 +54,7 @@ public class Display extends JFrame implements ActionListener, WindowListener {
         this.addWindowListener(this);
         this.setLocation(280, 100);
         this.setVisible(true);
-        playMenuSound();
+        music.playMenuSound();
     }
 
     public void createpandtf() {
@@ -85,75 +79,12 @@ public class Display extends JFrame implements ActionListener, WindowListener {
         this.getContentPane().add(new FrGameOver(point1, this));
         score = new Score(name, point1);
         keepScore.add(score);
-        stopSound();
+        music.stopSound();
         this.revalidate();
         this.repaint();
     }
 
-    public void playInGameSound() {
-        try {
-            audioInput = AudioSystem.getAudioInputStream(new File("sound\\InGameSound.wav"));
-            clip = AudioSystem.getClip();
-            clip.open(audioInput);
-            playSound();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-
-    public void playMenuSound() {
-        try {
-            audioInput = AudioSystem.getAudioInputStream(new File("sound\\MenuSound.wav"));
-            clip = AudioSystem.getClip();
-            clip.open(audioInput);
-            playSound();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-
-    public void playSoundEffect() {
-        try {
-            audioInput2 = AudioSystem.getAudioInputStream(new File("sound\\Ugh.wav"));
-            clip2 = AudioSystem.getClip();
-            clip2.open(audioInput2);
-            clip2.start();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-
-    public void playGameOver() {
-        try {
-            audioInput = AudioSystem.getAudioInputStream(new File("sound\\GameOver.wav"));
-            clip = AudioSystem.getClip();
-            clip.open(audioInput);
-            clip.start();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-
-    public void correctSound() {
-        try {
-            audioInput = AudioSystem.getAudioInputStream(new File("sound\\sound_Correct.wav"));
-            clip2 = AudioSystem.getClip();
-            clip2.open(audioInput);
-            clip2.start();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-
-    public void playSound() {
-        clip.start();
-        clip.loop(Clip.LOOP_CONTINUOUSLY);
-    }
-
-    public void stopSound() {
-        clip.stop();
-    }
-
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("Start") || e.getActionCommand().equals("Restart")) {
@@ -168,8 +99,8 @@ public class Display extends JFrame implements ActionListener, WindowListener {
             this.repaint();
             g.requestFocus();
             tf.requestFocusInWindow();
-            stopSound();
-            playInGameSound();
+            music.stopSound();
+            music.playInGameSound();
         }
         if (e.getActionCommand().equals("How To Play")) {
             removeContent();
@@ -183,8 +114,8 @@ public class Display extends JFrame implements ActionListener, WindowListener {
             removeContent();
             start = new FrStart(this);
             this.getContentPane().add(start, BorderLayout.CENTER);
-            stopSound();
-            playMenuSound();
+            music.stopSound();
+            music.playMenuSound();
             this.revalidate();
             this.repaint();
             start.requestFocus();

@@ -36,6 +36,7 @@ public class FrGame extends JPanel implements DocumentListener {
     private Dev dev4 = new Dev(150, base - 400);
     private Dev dev5 = new Dev(150, base - 500);
     static Display display;
+    private Music music = new Music();
 
 //	------------------Wave SIze ----------------------------
     private ArrayList<Wave> waveSet1 = makeWave1(2);
@@ -189,13 +190,12 @@ public class FrGame extends JPanel implements DocumentListener {
             g2.setStroke(new BasicStroke(15.0f));
             g2.draw(new RoundRectangle2D.Double(5, 5, 975, 542, 0, 15));
             dev1.health -= 60;
-            display.playSoundEffect();
             wave.x += 1500;
             if (dev1.health <= 0) {
                 display.endGame(this.point);
                 dev1.health = new Dev().health;
                 this.point = 0;
-                display.playGameOver();
+                music.playGameOver();
             }
         }
     }
@@ -244,13 +244,13 @@ public class FrGame extends JPanel implements DocumentListener {
 
     public void removeUpdate(DocumentEvent e) {
         if (display.tf.getText().equals("") && correct1 == true) {
-            display.correctSound();
+            music.correctSound();
             createWave(1);
         } else if (display.tf.getText().equals("") && correct2 == true) {
-            display.correctSound();
+            music.correctSound();
             createWave(2);
         } else if (display.tf.getText().equals("") && correct3 == true) {
-            display.correctSound();
+            music.correctSound();
             createWave(3);
         }
     }
