@@ -2,13 +2,10 @@ package Charactor;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class Wave {
+public class Wave implements Moveable{
 
     public int speed;
     public int x;
@@ -29,6 +26,7 @@ public class Wave {
         this.move(page, c_point);
     }
 
+    @Override
     public void move(JPanel page, int c_point) {
         this.timeMove = new Timer(0, new ActionListener() {
             public void actionPerformed(ActionEvent e) {

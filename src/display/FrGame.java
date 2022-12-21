@@ -96,8 +96,12 @@ public class FrGame extends JPanel implements DocumentListener {
         }
     }
 
-    private void drawBackground(Graphics2D g2) throws IOException {
-        g2.drawImage(ImageIO.read(new File("img\\bg-game2.png")), 0, 0, 1000, 600, null);
+    private void drawBackground(Graphics2D g2)  {
+        try {
+            g2.drawImage(ImageIO.read(new File("img\\bg-game2.png")), 0, 0, 1000, 600, null);
+        } catch (IOException ex) {
+            Logger.getLogger(FrGame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void drawdevHealth(Graphics2D g2) {
@@ -239,9 +243,11 @@ public class FrGame extends JPanel implements DocumentListener {
         return false;
     }
 
+    @Override
     public void changedUpdate(DocumentEvent e) {
     }
 
+    @Override
     public void removeUpdate(DocumentEvent e) {
         if (display.tf.getText().equals("") && correct1 == true) {
             music.correctSound();
@@ -255,6 +261,7 @@ public class FrGame extends JPanel implements DocumentListener {
         }
     }
 
+    @Override
     public void insertUpdate(DocumentEvent e) {
         check1();
         check2();

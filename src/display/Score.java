@@ -27,11 +27,12 @@ public class Score implements Serializable, Comparable<Score> {
     }
 
     @Override
-    public int compareTo(Score o) {
-        compareP = ((Score) o).getPoint();       
+    public int compareTo(Score score) {
+        compareP = ((Score) score).getPoint();       
         return compareP - this.point;
     }
 
+    @Override
     public String toString() {
         return this.point + this.name + "";
     }

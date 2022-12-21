@@ -130,14 +130,20 @@ public class Display extends JFrame implements ActionListener, WindowListener {
         }
     }
 
+    @Override
     public void windowActivated(WindowEvent arg0) {}
+    @Override
     public void windowClosed(WindowEvent arg0) {}
+    @Override
     public void windowClosing(WindowEvent arg0) {
         saveFile();
     }
     public void windowDeactivated(WindowEvent arg0) {}
+    @Override
     public void windowDeiconified(WindowEvent arg0) {}
+    @Override
     public void windowIconified(WindowEvent arg0) {}
+    @Override
     public void windowOpened(WindowEvent arg0) {
         openFile();
     }

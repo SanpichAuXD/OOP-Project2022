@@ -44,6 +44,7 @@ public class FrH2P extends JPanel {
         }
     }
 
+    @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.setColor(Color.white);
