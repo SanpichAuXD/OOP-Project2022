@@ -14,7 +14,7 @@ public class Wave implements Moveable{
     public int point;
     public String vord;
     Timer timeMove;
-    public int upSpeed = 2;
+    public int upSpeed = 3;
     public int upPoint;
 
     public Wave(int x, int y, int speed, String vord, int point, int c_point, JPanel page) {
@@ -28,11 +28,11 @@ public class Wave implements Moveable{
 
     @Override
     public void move(JPanel page, int c_point) {
-        this.timeMove = new Timer(0, new ActionListener() {
+        this.timeMove = new Timer(100, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (c_point >= 500 + upPoint) {
-                    upPoint += 500;
-                    upSpeed += 2;
+                if (c_point >= 300 + upPoint) {
+                    upPoint += 300;
+                    upSpeed += 3;
                     x -= (10 + upSpeed);
                 } else {
                     x -= (10 + upSpeed);

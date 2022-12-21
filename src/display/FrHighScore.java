@@ -12,7 +12,6 @@ public class FrHighScore extends JPanel {
     private static final long serialVersionUID = 1L;
     public long point;
     private int cnt;
-    private String keep;
     EleLabel showPoint_r;
     EleLabel showPoint_n;
     EleLabel showPoint_s;
@@ -60,7 +59,6 @@ public class FrHighScore extends JPanel {
                 showPoint_s.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
                 showPoint_s.setForeground(Color.white);
                 this.add(showPoint_s);
-                keep += "\n" + showPoint_r.getText() + showPoint_n.getText() + showPoint_s.getText();
                 cnt += 50;
             }
         } catch (Exception e) {
@@ -73,11 +71,7 @@ public class FrHighScore extends JPanel {
         super.paintComponent(g);
         g.setColor(Color.white);
         g.drawLine(200, 150, 800, 150);
-        g.drawRoundRect(200, 90, 600, 400, 0, 0);
-    }
-
-    public String getKeep() {
-        return keep;
+        g.drawRoundRect(200, 90, 600, 420, 0, 0);
     }
 
 }
