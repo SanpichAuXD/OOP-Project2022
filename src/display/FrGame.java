@@ -261,7 +261,6 @@ public class FrGame extends JPanel implements DocumentListener {
         }
     }
 
-    @Override
     public void insertUpdate(DocumentEvent e) {
         check1();
         check2();

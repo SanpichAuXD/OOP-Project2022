@@ -30,8 +30,8 @@ public class Wave implements Moveable{
     public void move(JPanel page, int c_point) {
         this.timeMove = new Timer(0, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (c_point >= 100 + upPoint) {
-                    upPoint += 100;
+                if (c_point >= 500 + upPoint) {
+                    upPoint += 500;
                     upSpeed += 2;
                     x -= (10 + upSpeed);
                 } else {
