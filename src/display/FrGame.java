@@ -121,7 +121,7 @@ public class FrGame extends JPanel implements DocumentListener {
     }
 
     private void createWave(int set) {
-        int n1 = rand.nextInt(1, 29);
+        int n1 = rand.nextInt(1, 50);
         int fars = rand.nextInt(200, 250);
         ArrayList<String> bank1 = createBank(1);
         ArrayList<String> bank2 = createBank(2);
@@ -141,7 +141,7 @@ public class FrGame extends JPanel implements DocumentListener {
         ArrayList<Wave> waveSet = new ArrayList<>();
         int far = 100;
         for (int i = 0; i < size; i++) {
-            int n1 = rand.nextInt(1, 29);
+            int n1 = rand.nextInt(1, 50);
             waveSet.add(new Wave(xStart + far, base, speed, bank.get(n1), bank.get(n1).length(), point, this));
             far = far + rand.nextInt(200, 300);
         }
@@ -153,7 +153,7 @@ public class FrGame extends JPanel implements DocumentListener {
         ArrayList<Wave> waveSet = new ArrayList<>();
         int far = 0;
         for (int i = 0; i < size; i++) {
-            int n1 = rand.nextInt(1, 29);
+            int n1 = rand.nextInt(1, 50);
             waveSet.add(new Wave(xStart + far, base - 185, speed, bank.get(n1), bank.get(n1).length(), point, this));
             far = far + rand.nextInt(200, 300);
         }
@@ -165,7 +165,7 @@ public class FrGame extends JPanel implements DocumentListener {
         bank = createBank(3);
         int far = 200;
         for (int i = 0; i < size; i++) {
-            int n1 = rand.nextInt(1, 29);
+            int n1 = rand.nextInt(1, 50);
             waveSet.add(new Wave(xStart + far, base - 375, speed, bank.get(n1), bank.get(n1).length(), point, this));
             far = far + rand.nextInt(200, 300);
         }
