@@ -195,6 +195,7 @@ public class FrGame extends JPanel implements DocumentListener {
             g2.draw(new RoundRectangle2D.Double(5, 5, 975, 542, 0, 15));
             dev1.health -= 60;
             wave.x += 1500;
+            music.playSoundEffect();
             if (dev1.health <= 0) {
                 display.endGame(this.point);
                 dev1.health = new Dev().health;
