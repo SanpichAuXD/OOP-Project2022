@@ -26,7 +26,7 @@ public class FrGame extends JPanel implements DocumentListener {
     private int point = 0;
     private boolean correct1, correct2, correct3;
     private double cnt = 0;
-    public Image img1, img2, img3,img4,img5,img6,img7,img8 = null;
+    public Image img1, img2, img3, img4, img5, img6, img7, img8 = null;
     private Random rand = new Random();
     public ArrayList<String> bank;
 
@@ -47,15 +47,15 @@ public class FrGame extends JPanel implements DocumentListener {
         this.setBounds(0, 0, 1000, 600);
         this.setLayout(null);
         this.setFocusable(true);
-         try {
-             img1 =  ImageIO.read(new File("img\\zom0.png"));
-            img2 =  ImageIO.read(new File("img\\zom1.png"));
-             img3 =  ImageIO.read(new File("img\\zom2.png"));
-            img4 =  ImageIO.read(new File("img\\zom3.png"));
-             img5 =  ImageIO.read(new File("img\\zom4.png"));
-            img6 =  ImageIO.read(new File("img\\zom5.png"));
-             img7 =  ImageIO.read(new File("img\\zom6.png"));
-             img8 =  ImageIO.read(new File("img\\zom7.png"));
+        try {
+            img1 = ImageIO.read(new File("img\\zom0.png"));
+            img2 = ImageIO.read(new File("img\\zom1.png"));
+            img3 = ImageIO.read(new File("img\\zom2.png"));
+            img4 = ImageIO.read(new File("img\\zom3.png"));
+            img5 = ImageIO.read(new File("img\\zom4.png"));
+            img6 = ImageIO.read(new File("img\\zom5.png"));
+            img7 = ImageIO.read(new File("img\\zom6.png"));
+            img8 = ImageIO.read(new File("img\\zom7.png"));
         } catch (IOException ex) {
             Logger.getLogger(FrGame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -96,7 +96,7 @@ public class FrGame extends JPanel implements DocumentListener {
         }
     }
 
-    private void drawBackground(Graphics2D g2)  {
+    private void drawBackground(Graphics2D g2) {
         try {
             g2.drawImage(ImageIO.read(new File("img\\bg-game2.png")), 0, 0, 1000, 600, null);
         } catch (IOException ex) {
@@ -185,7 +185,7 @@ public class FrGame extends JPanel implements DocumentListener {
     private void drawWave(Wave wave, Graphics2D g2) {
         FontMetrics fm = g2.getFontMetrics(g2.getFont());
         g2.setColor(new Color(17, 17, 51));
-        g2.fillRoundRect((wave.x - 4 + waveHeight / 2) - fm.stringWidth(wave.vord) / 2, (wave.y - waveHeight) - 20, fm.stringWidth(wave.vord) + 8, 24,10,10);
+        g2.fillRoundRect((wave.x - 4 + waveHeight / 2) - fm.stringWidth(wave.vord) / 2, (wave.y - waveHeight) - 20, fm.stringWidth(wave.vord) + 8, 24, 10, 10);
         g2.setColor(Color.white);
         g2.drawString(wave.vord, (wave.x + waveHeight / 2) - fm.stringWidth(wave.vord) / 2, (wave.y - waveHeight));
         g2.drawImage(svap(), wave.x, (wave.y - waveHeight), waveHeight, waveHeight + 10, null);
@@ -300,40 +300,36 @@ public class FrGame extends JPanel implements DocumentListener {
     public void setCorrect3(boolean c) {
         this.correct3 = c;
     }
-    public Image svap(){
-            Image img = null;
-           double num = cnt%7;
-            if (num <= 0){
-                img = img1;
-            }
-            else if (num <= 1){
-                img = img2;
-            }
-            else  if (num <= 2){
-                img = img3;
-            }
-            else   if (num <= 3){
-                img = img4;
-            }
-              else  if (num <= 4){
-                img = img5;
-            }
-             else    if (num <= 5){
-                img = img6;
-            }
-            else    if (num <= 6){
-                img = img7;
-            }
-            else    if (num <= 7){
-                img = img8;
-            }
-            cnt+= .05;
-            if (img == null){
-                System.out.println("null");
-                System.out.println(num);
-            }
-            return img; 
+
+    public Image svap() {
+        Image img = null;
+        double num = cnt % 7;
+        if (num <= 0) {
+            img = img1;
+        } 
+        else if (num <= 1) {
+            img = img2;
+        } 
+        else if (num <= 2) {
+            img = img3;
+        } 
+        else if (num <= 3) {
+            img = img4;
+        } 
+        else if (num <= 4) {
+            img = img5;
         }
-    
+        else if (num <= 5) {
+            img = img6;
+        } 
+        else if (num <= 6) {
+            img = img7;
+        } 
+        else if (num <= 7) {
+            img = img8;
+        }
+        cnt += .05;
+        return img;
+    }
 
 }

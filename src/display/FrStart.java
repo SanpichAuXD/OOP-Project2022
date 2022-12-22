@@ -48,6 +48,7 @@ public class FrStart extends JPanel {
         }
     } 
 
+    @Override
     public void paintComponent(Graphics g) {
         try {
             img = ImageIO.read(new File("img\\bgstart.png"));
